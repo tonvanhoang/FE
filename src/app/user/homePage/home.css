@@ -1,0 +1,252 @@
+.liked {
+  color: red; /* Màu đỏ khi đã thích */
+}
+
+/* containerPost */
+.containerPost {
+  width: 82%;
+  height: 100vh;
+  display: flex;
+  overflow: auto;
+}
+.containerPost .postLeft {
+  width: 66%;
+}
+/* post */
+.containerPost .item {
+  width: 60%;
+  margin: 20px auto;
+  padding-bottom: 10px;
+}
+.containerPost .item .img {
+  width: 35px;
+  height: 35px;
+  border-radius: 200px;
+  margin-left: 5px;
+  margin-bottom: 10px;
+}
+.containerPost .item .img img {
+  width: 100%;
+  height: 100%;
+  border-radius: 200px;
+}
+.containerPost .item .content {
+  line-height: 35px;
+}
+.containerPost .item .content a {
+  margin-left: 10px;
+  font-weight: 500;
+  color: black;
+  text-decoration: none;
+}
+.containerPost .item .content span {
+  margin-left: 15px;
+  color: gray;
+}/* Post images */
+.post-images {
+  position: relative;
+  margin-bottom: 10px;
+  width: 100%;
+  height: 630px;
+}
+.post-images img {
+  width: 100%;
+  display: none;
+  height: 100%;
+}
+.post-images img.active {
+  display: block;
+}
+/* chấm */
+.image-indicators {
+  text-align: center;
+  margin-top: 10px;
+  position: absolute;
+  top: 95%;
+  left: 50%;
+  z-index: 1;
+  transform: translate(-50%, -50%);
+}
+.image-indicator {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  background-color: white;
+  border-radius: 50%;
+  margin: 0 5px;
+}
+.image-indicator.active {
+  background-color: #333;
+}
+.post-navigation {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+}
+.post-navigation a:hover {
+  cursor: pointer;
+}
+/* icon */
+.containerPost .item .containerIcon {
+  margin-top: 10px;
+}
+.containerPost .item .containerIcon i {
+  font-size: 24px;
+  margin-right: 15px;
+  color: #333;
+  transition: all 0.5s;
+}
+.containerPost .item .containerIcon i:hover {
+  cursor: pointer;
+  color: #d2d2d2;
+}
+/* contentTitle */
+.containerPost .item .contentTitle {
+  width: 100%;
+}
+.containerPost .item .contentTitle a {
+  font-weight: 500;
+  display: block;
+  text-decoration: none;
+  color: black;
+  font-size: 14px;
+}
+.containerPost .item .contentTitle .luotThich {
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+.containerPost .item .contentTitle .titlePost {
+  font-weight: 400;
+}
+.containerPost .item .contentTitle .titlePost label {
+  font-weight: 500;
+  font-size: 16px;
+}
+/* bình luận */
+.containerPost .item .inPutThemBL {
+  margin-top: 20px;
+}
+.containerPost .item .inPutThemBL input {
+  border: none;
+}
+.containerPost .item .inPutThemBL::after {
+  content: "";
+  width: 100%;
+  height: 1px;
+  background-color: #d2d2d2;
+  display: block;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.containerPost .item .inPutThemBL button {
+  background-color: white;
+  border: none;
+  margin-left: 5px;
+}
+.containerPost .item .inPutThemBL button a {
+  text-decoration: none;
+  color: #219af7;
+  font-weight: 500;
+  transition: all 0.5s;
+}
+.containerPost .item .inPutThemBL button a:hover {
+  color: black;
+}
+.linkPost{
+  position: fixed;
+  background-color: white;
+  border: 1px solid #d2d2d2;
+  padding: 40px;
+  border-radius: 10px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  z-index: 1;
+}
+.linkPost .btnCopy{
+  border: none;
+  padding: 3px 10px;
+  margin-left: 10px;
+  transition: all 0.5s;
+  font-weight: 500;
+  border-radius: 7px;
+}
+.linkPost .btnCopy:hover{
+  background-color: #219af7;
+  color: white;
+}
+.linkPost .btnClose{
+  border: none;
+  background-color: #333;
+  color: white;
+  padding: 3px 20px;
+  border-radius: 8px;
+  margin-top: 15px;
+  text-align: center;
+}
+/* máy tính bảng */
+@media (min-width: 768px) and (max-width: 1023px) {
+  /*  */
+  .containerPost .postLeft {
+    width: 100%;
+  }
+  .containerPost .item {
+    width: 80%;
+  }
+  .containerPost .item .post-images {
+    width: 100%;
+    height: 600px;
+  }
+  .containerPost .item .post-images {
+    width: 100%;
+    height: 100%;
+  }
+  .containerPost .postRight {
+    display: none;
+  }
+}
+/* Mobile */
+@media (max-width: 767px) {
+  .containerPost .postLeft {
+    width: 100%;
+  }
+  /* container post */
+  .containerPost {
+    display: block;
+    width: 100%;
+    overflow: visible;
+  }
+  .containerPost .item {
+    width: 100%;
+    margin: auto;
+    margin-bottom: 30px;
+  }
+  .containerPost .item:last-child .contentTitle {
+    padding-bottom: 100px;
+  }
+  .containerPost .item .post-images {
+    width: 100%;
+    height: 100%;
+  }
+  .containerPost .item .contentTitle .luotThich {
+    margin-left: 0px;
+  }
+  .containerPost .item .containerIcon,
+  .containerPost .item .contentTitle,
+  .containerPost .item .inPutThemBL {
+    margin-top: 15px;
+    margin-left: 15px;
+    width: 90%;
+  }
+  .containerPost .item .inPutThemBL {
+    display: none;
+  }
+  .containerPost .postRight {
+    display: none;
+  }
+}

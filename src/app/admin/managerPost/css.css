@@ -1,0 +1,276 @@
+
+
+/* containerPost */
+.containerPost{
+    width: 82%;
+    height: 100vh;
+    display: flex; 
+    overflow-y: scroll;
+    padding: 40px 0px;
+}
+.containerPost::-webkit-scrollbar{
+    display: none;
+}
+.containerPost .conPost{
+    width: 90%;
+    margin: auto;
+}
+.containerPost .conPost table{
+    margin-bottom: 10px;
+}
+.containerPost .conPost table tr th{
+    text-align: center;
+    border-bottom: 1px solid #d2d2d2;
+}
+.containerPost .conPost table tr td{
+    padding: 0px 10px;
+    text-align: center;
+    width: 250px;
+ 
+}
+.containerPost .conPost table tr:hover{
+    cursor: pointer;
+}
+.containerPost .conPost table tr td label{
+    display: none;
+} 
+.containerPost .conPost table .trAccount{
+    height: 80px;
+    border-bottom: 1px solid #d2d2d2;
+}
+.containerPost .conPost table tr td:first-child{
+    width: 250px;
+    padding: 0px;
+    display: flex;
+    margin-top: 15px;
+
+}
+.containerPost .conPost table tr td .img{
+   width: 50px;
+   height: 50px;
+}
+.containerPost .conPost table tr td .img img{
+    width: 100%;
+    height: 100%;
+}
+.containerPost .conPost table tr td:first-child div:last-child{
+    text-align: left;
+}
+.containerPost .conPost table tr td:first-child div:last-child a{
+    font-weight: 500;
+}
+.containerPost .conPost table tr td:first-child div:last-child span{
+    font-size: 12px;
+}
+.containerPost .conPost table tr td:last-child button{
+    display: block;
+    border: none;
+    background-color: #333;
+    padding: 3px 10px;
+    width: 90px;
+    color: white;
+    border-radius: 5px;
+    margin:5px auto;
+}
+/* máy tính bảng */
+@media (min-width: 768px) and (max-width: 1023px) {
+    nav {
+        width: 10%;
+        height: 100vh;
+        border-right: 1px solid #d2d2d2;
+        padding: 20px 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        z-index: 1;
+      }
+    
+      nav .iconlogo {
+        display: block;
+        margin-bottom: 20px;
+      }
+    
+      nav h2 {
+        display: none;
+      }
+    
+      nav .container_ul {
+        width: auto;
+      }
+    
+      nav .container_ul ul {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+    
+      nav .container_ul ul li {
+        margin-bottom: 20px;
+        padding: 10px;
+      }
+      nav .container_ul ul li .ulnavcon{
+        height: 100vh;
+        width: 400px;
+        left: 270px;
+        position: fixed;
+
+    }
+      nav .container_ul ul li a span{
+        display: none;
+      }
+      nav .container_ul ul li .ulnavcon .containercon form input {
+        margin-right: 5px;
+      }
+    /* container post */
+    .containerPost {
+        width: 90%;
+    }
+    .containerPost .conPost{
+        width: 100%;
+        margin: 5px auto;
+    }
+    .containerPost .conPost h4{
+        margin-left: 10px;
+    }
+    .containerPost .conPost table tr td{
+        padding: 0px 10px;
+        width: auto;
+     
+    }
+    .containerPost .conPost table tr td:first-child{
+        width: auto;
+        margin-top: 15px;
+    
+    }
+}
+   /* điện thoại */
+/* Mobile */
+@media (max-width: 767px) {
+    .containerCha {
+        display: block;
+    }
+    nav {
+        border: none;
+        width: 100%;
+        padding: 0;
+        height: auto;
+        position: relative;
+        z-index: 1;
+    }
+    nav h2 {
+        margin-left: 0;
+        padding: 20px 10px;
+        font-size: 24px;
+    }
+    nav .container_ul ul li a span{
+        display: none;
+    }
+    nav .container_ul ul li {
+        margin-bottom: 0;
+        padding: 10px;
+        line-height: 45px;
+        width: 100%;
+        text-align: center;
+        margin: auto;
+    }
+    nav .container_ul ul li a{
+        margin: auto;
+    }
+    nav .container_ul {
+        display: flex;
+        width: 100%;
+        height: 60px;
+        position: fixed;
+        bottom: 0;
+        z-index: 1;
+        background-color: white;
+        border-top: 1px solid #d2d2d2;
+    }
+    nav .container_ul ul {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+    }
+    nav .container_ul ul li .ulnavcon {
+        display: block;
+        width: 100%;
+        height: calc(100vh - 60px); 
+        top: 0;
+        left: 0;
+        position: fixed;
+        transform: none;
+        overflow: hidden;
+    }
+    nav .container_ul ul li .ulnavcon .containercon form input {
+        padding: 0px 5px; 
+        width: 280px;
+    }
+    nav .container_ul ul li .ulnavcon .containercon .ganday{
+        max-height: 65vh;
+    }
+    
+    nav .container_ul ul li .ulnavcon .containercon .ganday h6{
+        text-align: left;
+    }
+
+    nav .container_ul ul li .ulnavcon .containercon .ganday .lichsu a{
+        margin: 0px;
+    }
+    nav .container_ul ul li .ulnavcon .containercon .ganday .lichsu i{
+        margin-top: 15px;
+    }
+    /* container post */
+    .containerPost {
+        display: block;
+        width: 100%;
+       padding: 0px;
+    }
+    .containerPost .conPost h4{
+        margin-top: 0px;
+        margin: 20px 0px;
+    }
+    .containerPost .conPost table {
+        width: 100%;
+        margin-bottom: 100px;
+    }
+    .containerPost .conPost table tr th{
+        display: none;
+    }
+    .containerPost .conPost table tr th:first-child{
+        width: 100%;
+        padding-bottom: 10px;
+        display: block;
+    }
+    .containerPost .conPost table .trAccount{
+        height: auto;
+        border-bottom: 1px solid #d2d2d2;
+    }
+    .containerPost .conPost table .trAccount td{
+        display: flex;
+        width: 100%;
+        text-align: left;
+        width: 100%;
+        padding: 0px;
+    }
+    .containerPost .conPost table .trAccount td label{
+        display: block;
+        font-weight: 500;
+        margin-top: 5px;
+    }
+    .containerPost .conPost table .trAccount td span{
+        padding-left: 5px;
+        margin-top: 5px;
+
+    }
+    .containerPost .conPost table tr td:last-child{
+        display: flex;
+        width: 60%;
+        /* border: 1px solid red; */
+        margin: 10px auto;
+    }
+    .containerPost .conPost table tr td:last-child button{
+        padding: 6px 0px;
+        margin: auto;
+    }
+}
+

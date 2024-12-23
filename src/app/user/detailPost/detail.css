@@ -1,0 +1,332 @@
+
+  /* detail post */
+  /* right */
+  .detailPost {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100vh;
+    z-index: 1;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+  .detailPost .childdetailPost {
+    width: 70%;
+    margin: 40px auto;
+    display: flex;
+    height: 90vh;
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .detailPost #closeCart{
+    float: right;
+    font-size: 30px;
+    margin-top: 15px;
+    margin-right: 30px;
+    font-weight: bold;
+    color: white;
+    transition: all 0.5s;
+  }
+  .detailPost #closeCart:hover{
+    color: red;
+    cursor: pointer;
+  }
+  .detailPost .childdetailPost .detailRight {
+    width: 50%;
+    height: 90vh;
+  }
+  .detailPost .childdetailPost .detailRight .item {
+    width: 100%;
+    margin: 0;
+    padding: 0px;
+  }
+  .detailPost .childdetailPost .detailRight .item .post-images {
+    height: 90vh;
+  }
+  /* left */
+  .detailPost .childdetailPost .detailLeft {
+    width: 50%;
+    height: 90vh;
+    background-color: white;
+    border: 1px solid #d2d2d2;
+  }
+  .detailPost .childdetailPost .detailLeft .avatarPost {
+    margin-top: 10px;
+  }
+  .detailPost .childdetailPost .detailLeft .avatarPost img {
+    width: 40px;
+    height: 40px;
+    border-radius: 200px;
+    margin-left: 10px;
+  }
+  .detailPost .childdetailPost .detailLeft .avatarPost a {
+    color: black;
+    text-decoration: none;
+    font-weight: 500;
+    margin-left: 5px;
+  }
+  .detailPost .childdetailPost .detailLeft .avatarPost::after {
+    content: "";
+    width: 100%;
+    height: 1px;
+    background-color: #d2d2d2;
+    display: block;
+    margin-top: 10px;
+  }
+  .detailPost .childdetailPost .detailLeft .containerComment {
+    height: 60vh;
+    overflow-y: scroll;
+    border-bottom: 1px solid #d2d2d2;
+    padding-bottom: 15px;
+  }
+  .detailPost .childdetailPost .detailLeft .containerComment::-webkit-scrollbar {
+    display: none;
+  }
+  .detailPost .childdetailPost .detailLeft .commentdetail {
+    margin-left: 10px;
+    margin-top: 20px;
+  }
+  .detailPost .childdetailPost .detailLeft .commentdetail .avatarUser {
+    display: flex;
+  }
+  .detailPost .childdetailPost .detailLeft .commentdetail .avatarUser .img {
+    width: 10%;
+  }
+  .detailPost .childdetailPost .detailLeft .commentdetail .avatarUser img {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+  }
+  .detailPost .childdetailPost .detailLeft .commentdetail .avatarUser .content {
+    width: 90%;
+  }
+  .detailPost .childdetailPost .detailLeft .commentdetail .avatarUser a {
+    text-decoration: none;
+    color: black;
+    font-weight: 500;
+    display: block;
+    font-size: 14px;
+  }
+  .detailPost .childdetailPost .detailLeft .commentdetail .avatarUser label {
+    font-weight: 400;
+    width: 90%;
+    height: auto;
+    font-size: 14px;
+  }
+  .detailPost .childdetailPost .detailLeft .commentdetail .repComment {
+    display: flex;
+    margin-left: 50px;
+    font-size: 14px;
+  }
+  .detailPost .childdetailPost .detailLeft .commentdetail .repComment span {
+    color: gray;
+  }
+  .detailPost .childdetailPost .detailLeft .commentdetail .repComment a {
+    text-decoration: none;
+    color: gray;
+    font-weight: bold;
+    transition: all 0.6s;
+    margin-left: 20px;
+  }
+  .detailPost .childdetailPost .detailLeft .commentdetail .repComment a:hover {
+    color: #219af7;
+  }
+  /* icon */
+  .detailPost .childdetailPost .detailLeft .containerIcon {
+    margin-top: 10px;
+    margin-left: 15px;
+  }
+  .detailPost .childdetailPost .detailLeft .containerIcon i {
+    font-size: 24px;
+    margin-right: 15px;
+    color: #333;
+    transition: all 0.5s;
+  }
+  .detailPost .childdetailPost .detailLeft .containerIcon i:hover {
+    cursor: pointer;
+    color: #d2d2d2;
+  }
+  .detailPost .childdetailPost .detailLeft .containerIcon span {
+    display: block;
+    font-size: 14px;
+    color: #333;
+    font-weight: 500;
+    margin-top: 5px;
+  }
+  /* bình luận */
+  .detailPost .childdetailPost .detailLeft .inPutThemBL {
+    margin-top: 20px;
+  }
+  .detailPost .childdetailPost .detailLeft .inPutThemBL input {
+    border: none;
+    margin-left: 10px;
+  }
+  .detailPost .childdetailPost .detailLeft .inPutThemBL i {
+    line-height: 50px;
+    font-size: 24px;
+    margin-left: 10px;
+    transition: all 0.6s;
+  }
+  .detailPost .childdetailPost .detailLeft .inPutThemBL i:hover {
+    color: yellow;
+    cursor: pointer;
+  }
+  .detailPost .childdetailPost .detailLeft .inPutThemBL::before {
+    content: "";
+    width: 100%;
+    height: 1px;
+    background-color: #d2d2d2;
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  .detailPost .childdetailPost .detailLeft .inPutThemBL::after {
+    content: "";
+    width: 100%;
+    height: 1px;
+    background-color: #d2d2d2;
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  .detailPost .childdetailPost .detailLeft .inPutThemBL button {
+    background-color: white;
+    border: none;
+    margin-left: 5px;
+  }
+  .detailPost .childdetailPost .detailLeft .inPutThemBL button a {
+    text-decoration: none;
+    color: #219af7;
+    font-weight: 500;
+    transition: all 0.5s;
+  }
+  .detailPost .childdetailPost .detailLeft .inPutThemBL button a:hover {
+    color: black;
+  }
+
+  .post-images {
+    position: relative;
+    margin-bottom: 10px;
+    width: 100%;
+    height: 630px;
+  }
+  .post-images img {
+    width: 100%;
+    display: none;
+    height: 100%;
+  }
+  .post-images img.active {
+    display: block;
+  }
+  /* chấm */
+  .image-indicators {
+    text-align: center;
+    margin-top: 10px;
+    position: absolute;
+    top: 95%;
+    left: 50%;
+    z-index: 1;
+    transform: translate(-50%, -50%);
+  }
+  .image-indicator {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    background-color: white;
+    border-radius: 50%;
+    margin: 0 5px;
+  }
+  .image-indicator.active {
+    background-color: #333;
+  }
+  .post-navigation {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+  }
+  .post-navigation a:hover {
+    cursor: pointer;
+  }
+  /* máy tính bảng */
+  @media (min-width: 768px) and (max-width: 1023px) {
+    /* detail post */
+    /* right */
+    .detailPost .childdetailPost {
+      width: 80%;
+      height: 40vh;
+    }
+    .detailPost .childdetailPost .detailRight {
+      height: 500px;
+    }
+    .detailPost .childdetailPost .detailRight .item .post-images {
+      height: 500px;
+    }
+    /* left */
+    .detailPost .childdetailPost .detailLeft {
+      height: 500px;
+    }
+    .detailPost .childdetailPost .detailLeft .containerComment {
+      height: 55%;
+    }
+    .detailPost .childdetailPost .detailLeft .commentdetail .avatarUser .content {
+      margin-left: 10px;
+    }
+  }
+  /* Mobile */
+  @media (max-width: 767px) {
+    /* detailPost */
+    .detailPost {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+    }
+    .detailPost #closeCart{
+      color: black;
+      position: absolute;
+      z-index: 1;
+      left: 87%;
+      margin: 0;
+      top: 10px;
+    }
+    .detailPost .childdetailPost {
+      width: 100%;
+      margin: 0;
+      display: block;
+      height: 100%;
+      top: 50%;
+      z-index: 0;
+    }
+    /* right */
+    .detailPost .childdetailPost .detailRight {
+      display: none;
+    }
+    /* left */
+    .detailPost .childdetailPost .detailLeft {
+      width: 100%;
+      height: 100%;
+    }
+    .detailPost .childdetailPost .detailLeft .containerComment {
+      height: calc(100vh - 120px); /* Adjust height to fit the screen */
+      overflow-y: auto;
+    }
+    /* bình luận */
+    .detailPost .childdetailPost .detailLeft .inPutThemBL {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background-color: white;
+    }
+    /*report  */
+    .detailPost .childdetailPost .detailLeft .btn-Report .avatarPost{
+      margin: 0px;
+    }
+  }
+  

@@ -1,0 +1,96 @@
+/* friend */ 
+#theChaFriend{
+    margin: 20px 0px;
+  }
+ #theChaFriend #btn{
+    font-size: 30px;
+    color: gray;
+    transition: all 0.5s;
+  }
+ #theChaFriend #btn:hover{
+    cursor: pointer;
+    color: black;
+  }
+ .containerFriend {
+    display: flex;
+    width: 90%;
+    /* margin: 40px auto; */
+    overflow-x: scroll;
+  }
+ .containerFriend::-webkit-scrollbar {
+    display: none;
+  }
+ .containerFriend .itemFriend .img {
+    width: 60px;
+    height: 60px;
+    border-radius: 200px;
+    margin: auto;
+    position: relative;
+  }
+ .containerFriend .itemFriend .img .trangthai{
+    width: 13px;
+    height: 13px;
+    background-color: #33CC33;
+    border-radius: 200px;
+    position: absolute;
+    top: 85%;
+    left: 85%;
+    transform: translate(-50%,-50%);
+    border: 2px solid white;
+  }
+ .containerFriend .itemFriend .img:hover {
+    cursor: pointer;
+  }
+ .containerFriend .itemFriend .img img {
+    width: 100%;
+    height: 100%;
+    border-radius: 200px;
+  }
+ .containerFriend .itemFriend a {
+    display: block;
+    text-decoration: none;
+    font-size: 14px;
+    color: gray;
+    width: 70px;
+    text-align: center;
+    line-height: 18px;
+    margin-top: 3px;
+    font-weight: 400;
+    transition: all 0.5s;
+  }
+ .containerFriend .itemFriend a:hover {
+    color: black;
+  }
+
+/* máy tính bảng */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .containerFriend {
+      width: 94%;
+    }
+    .containerFriend .itemFriend .img {
+      width: 80px;
+      height: 80px;
+    }
+    .containerFriend .itemFriend a {
+      width: 90px;
+    }
+  }
+  /* Mobile */
+  @media (max-width: 767px) {
+    #theChaFriend{
+      margin: 0px;
+      margin-bottom: 20px;
+    }
+    .containerFriend {
+      margin: auto;
+      width: 94%;
+    }
+    .containerFriend .itemFriend .img {
+      width: 80px;
+      height: 80px;
+    }
+    .containerFriend .itemFriend a {
+      width: 90px;
+    }
+  }
+  

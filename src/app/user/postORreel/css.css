@@ -1,0 +1,92 @@
+.ContainerFormAdd {
+  width: 100%;
+  height: 100vh;
+}
+.ContainerFormAdd .content {
+  width: 50%;
+  margin: auto;
+  padding-top: 150px;
+  font-size: 24px;
+}
+.ContainerFormAdd .content p {
+  margin: 0;
+  margin-bottom: 10px;
+  font-family: "Pacifico", cursive;
+  font-weight: 400;
+  font-style: normal;
+  margin-left: 20px;
+  letter-spacing: 2px;
+}
+.ContainerFormAdd .item {
+  display: flex;
+  width: 50%;
+  margin: auto;
+  padding-top: 50px;
+}
+.ContainerFormAdd .item .formAddPost {
+  text-align: center;
+  width: 50%;
+}
+.ContainerFormAdd .item .formAddReel {
+  width: 50%;
+  text-align: center;
+}
+.ContainerFormAdd .item p {
+  font-size: 18px;
+}
+.ContainerFormAdd .item button {
+  padding: 20px 100px;
+  background-color: white;
+  border: 1px solid #d2d2d2;
+}
+.ContainerFormAdd .item button a {
+  color: black;
+  font-weight: bold;
+  text-decoration: none;
+  font-size: 20px;
+  transition: all 0.5s;
+}
+.ContainerFormAdd .item button a:hover {
+  color: #219af7;
+}
+@media (max-width: 767px) {
+  .ContainerFormAdd .content {
+    width: 90%;
+    padding-top: 50px;
+  }
+  .ContainerFormAdd .content p {
+    margin-left: 0;
+    font-size: 20px;
+  }
+  .ContainerFormAdd .item {
+    display: block;
+    width: 90%;
+    padding-top: 20px;
+  }
+  .ContainerFormAdd .item .formAddPost,
+  .ContainerFormAdd .item .formAddReel {
+    width: 100%;
+  }
+  .ContainerFormAdd .item .formAddReel {
+    margin-top: 20px;
+  }
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+  .ContainerFormAdd .content {
+    width: 90%;
+    padding-top: 250px;
+  }
+  .ContainerFormAdd .content p {
+    margin-left: 0;
+    font-size: 24px;
+    margin-left: 20px;
+  }
+  .ContainerFormAdd .item {
+    width: 90%;
+    padding-top: 20px;
+  }
+  .ContainerFormAdd .item .formAddPost,
+  .ContainerFormAdd .item .formAddReel {
+    width: 100%;
+  }
+}

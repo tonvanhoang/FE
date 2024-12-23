@@ -1,0 +1,908 @@
+.containerCha {
+    display: flex;
+}
+
+nav {
+    position: relative;
+    border-right: 1px solid #d2d2d2;
+    width: 18%;
+    height: 100vh;
+    padding: 0px 30px;
+}
+
+/* logo ẩn cho tablet */
+nav .iconlogo {
+    color: black;
+    display: none;
+    font-family: "Arbutus", serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 34px;
+    padding: 10px 0px;
+}
+
+nav h2 {
+    font-family: "Arbutus", serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 34px;
+    margin: 0px;
+    padding: 30px 0px;
+    margin-left: 10px;
+}
+
+nav .container_ul ul {
+    padding: 0px;
+    margin: 0px;
+}
+
+nav .container_ul ul li {
+    list-style: none;
+    margin-bottom: 5px;
+    padding: 10px 10px;
+    border-radius: 10px;
+    transition: all 0.7s;
+    display: flex;
+    align-content: center;
+}
+
+nav .container_ul ul li a {
+    color: #333;
+    text-decoration: none;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+}
+
+nav .container_ul ul li i {
+    font-size: 28px;
+    margin-right: 5px;
+}
+
+nav .container_ul ul .addpost {
+    padding: 5px;
+    border: 2px solid black;
+    border-radius: 8px;
+}
+
+nav .container_ul ul li:hover {
+    background-color: #EEEEEE;
+}
+
+nav .container_ul ul li .ulnavcon {
+    position: absolute;
+    border: 1px solid #d2d2d2;
+    height: 100vh;
+    width: 160%;
+    top: 50%;
+    left: 180%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    background-color: white;
+    display: none;
+}
+
+nav .container_ul ul li .ulnavcon .containercon {
+    width: 100%;
+    margin: auto;
+}
+
+nav .container_ul ul li .ulnavcon h4 {
+    width: 90%;
+    margin: 30px auto;
+}
+
+nav .container_ul ul li .ulnavcon .containercon form {
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    margin: 25px auto;
+}
+
+nav .container_ul ul li .ulnavcon .containercon .Divform::after {
+    content: '';
+    background-color: #d2d2d2;
+    height: 0.5px;
+    width: 100%;
+    display: block;
+}
+
+nav .container_ul ul li .ulnavcon .containercon form input {
+    border: 1px solid #d2d2d2;
+    padding: 5px 10px;
+    width: 285px;
+    border-radius: 5px;
+}
+
+nav .container_ul ul li .ulnavcon .containercon form button {
+    background-color: #333;
+    color: white;
+    font-weight: 500;
+    border: none;
+    width: 85px;
+    border-radius: 5px;
+}
+
+nav .container_ul ul li .ulnavcon .containercon .ganday {
+    width: 90%;
+    margin: auto;
+    overflow-y: scroll;
+    max-height: 78vh;
+    z-index: 1;
+}
+
+nav .container_ul ul li .ulnavcon .containercon .ganday::-webkit-scrollbar {
+    display: none;
+}
+
+nav .container_ul ul li .ulnavcon .containercon .ganday h6 {
+    margin: 25px 0px;
+}
+
+nav .container_ul ul li .ulnavcon .containercon .ganday .lichsu {
+    margin-bottom: 5px;
+    display: flex;
+    justify-content: space-between;
+}
+
+nav .container_ul ul li .ulnavcon .containercon .ganday .lichsu a {
+    font-size: 16px;
+    font-size: 500;
+}
+
+nav .container_ul ul li .ulnavcon .containercon .ganday .lichsu i {
+    font-size: 16px;
+    color: gray;
+    transition: all 0.5s;
+    display: flex;
+    margin-top: 5px;
+}
+
+nav .container_ul ul li .ulnavcon .containercon .ganday .lichsu i:hover {
+    color: red;
+}
+
+nav .container_ul ul li .ulnavcon .containercon .ganday .lichsu i:hover {
+    cursor: pointer;
+}
+
+
+/* containerPost */
+.containerPost {
+    width: 82%;
+    height: 100vh;
+    display: flex;
+    overflow-y: scroll;
+    padding: 40px 0px;
+}
+
+.containerPost::-webkit-scrollbar {
+    display: none;
+}
+
+.containerPost .conPost {
+    width: 90%;
+    margin: auto;
+}
+
+.containerPost .conPost table {
+    margin-bottom: 10px;
+}
+
+.containerPost .conPost table tr th {
+    text-align: center;
+    border-bottom: 1px solid #d2d2d2;
+}
+
+.containerPost .conPost table tr td {
+    padding: 0px 10px;
+    text-align: center;
+    width: 200px;
+
+}
+
+.containerPost .conPost table tr td label {
+    display: none;
+}
+
+.containerPost .conPost table .trAccount {
+    height: 80px;
+    border-bottom: 1px solid #d2d2d2;
+}
+
+.containerPost .conPost table tr td:first-child {
+    width: 250px;
+    padding: 0px;
+    display: flex;
+    margin-top: 15px;
+
+}
+
+.containerPost .conPost table tr td .img {
+    width: 50px;
+    height: 50px;
+}
+
+.containerPost .conPost table tr td .img img {
+    width: 100%;
+    height: 100%;
+}
+
+.containerPost .conPost table tr td:first-child div:last-child {
+    text-align: left;
+}
+
+.containerPost .conPost table tr td:first-child div:last-child a {
+    font-weight: 500;
+}
+
+.containerPost .conPost table tr td:first-child div:last-child span {
+    font-size: 12px;
+}
+
+.containerPost .conPost table tr td:last-child button {
+    display: block;
+    border: none;
+    background-color: #333;
+    padding: 3px 10px;
+    width: 90px;
+    color: white;
+    border-radius: 5px;
+    margin: 5px auto;
+}
+
+/* máy tính bảng */
+@media (min-width: 768px) and (max-width: 1023px) {
+    nav {
+        width: 10%;
+        height: 100vh;
+        border-right: 1px solid #d2d2d2;
+        padding: 20px 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        z-index: 1;
+    }
+
+    nav .iconlogo {
+        display: block;
+        margin-bottom: 20px;
+    }
+
+    nav h2 {
+        display: none;
+    }
+
+    nav .container_ul {
+        width: auto;
+    }
+
+    nav .container_ul ul {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    nav .container_ul ul li {
+        margin-bottom: 20px;
+        padding: 10px;
+    }
+
+    nav .container_ul ul li .ulnavcon {
+        height: 100vh;
+        width: 400px;
+        left: 270px;
+        position: fixed;
+
+    }
+
+    nav .container_ul ul li a span {
+        display: none;
+    }
+
+    nav .container_ul ul li .ulnavcon .containercon form input {
+        margin-right: 5px;
+    }
+
+    /* container post */
+    .containerPost {
+        width: 90%;
+    }
+
+    .containerPost .conPost {
+        width: 100%;
+        margin: 5px auto;
+    }
+
+    .containerPost .conPost h4 {
+        margin-left: 10px;
+    }
+
+    .containerPost .conPost table tr td {
+        padding: 0px 10px;
+        width: auto;
+
+    }
+
+    .containerPost .conPost table tr td:first-child {
+        width: auto;
+        margin-top: 15px;
+
+    }
+}
+
+/* điện thoại */
+/* Mobile */
+@media (max-width: 767px) {
+    .containerCha {
+        display: block;
+    }
+
+    nav {
+        border: none;
+        width: 100%;
+        padding: 0;
+        height: auto;
+        position: relative;
+        z-index: 1;
+    }
+
+    nav h2 {
+        margin-left: 0;
+        padding: 20px 10px;
+        font-size: 24px;
+    }
+
+    nav .container_ul ul li a span {
+        display: none;
+    }
+
+    nav .container_ul ul li {
+        margin-bottom: 0;
+        padding: 10px;
+        line-height: 45px;
+        width: 100%;
+        text-align: center;
+        margin: auto;
+    }
+
+    nav .container_ul ul li a {
+        margin: auto;
+    }
+
+    nav .container_ul {
+        display: flex;
+        width: 100%;
+        height: 60px;
+        position: fixed;
+        bottom: 0;
+        z-index: 1;
+        background-color: white;
+        border-top: 1px solid #d2d2d2;
+    }
+
+    nav .container_ul ul {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    nav .container_ul ul li .ulnavcon {
+        display: block;
+        width: 100%;
+        height: calc(100vh - 60px);
+        top: 0;
+        left: 0;
+        position: fixed;
+        transform: none;
+        overflow: hidden;
+    }
+
+    nav .container_ul ul li .ulnavcon .containercon form input {
+        padding: 0px 5px;
+        width: 280px;
+    }
+
+    nav .container_ul ul li .ulnavcon .containercon .ganday {
+        max-height: 65vh;
+    }
+
+    nav .container_ul ul li .ulnavcon .containercon .ganday h6 {
+        text-align: left;
+    }
+
+    nav .container_ul ul li .ulnavcon .containercon .ganday .lichsu a {
+        margin: 0px;
+    }
+
+    nav .container_ul ul li .ulnavcon .containercon .ganday .lichsu i {
+        margin-top: 15px;
+    }
+
+    /* container post */
+    .containerPost {
+        display: block;
+        width: 100%;
+        padding: 0px;
+    }
+
+    .containerPost .conPost h4 {
+        margin-top: 0px;
+        margin: 20px 0px;
+    }
+
+    .containerPost .conPost table {
+        width: 100%;
+        margin-bottom: 100px;
+    }
+
+    .containerPost .conPost table tr th {
+        display: none;
+    }
+
+    .containerPost .conPost table tr th:first-child {
+        width: 100%;
+        padding-bottom: 10px;
+        display: block;
+    }
+
+    .containerPost .conPost table .trAccount {
+        height: auto;
+        border-bottom: 1px solid #d2d2d2;
+    }
+
+    .containerPost .conPost table .trAccount td {
+        display: flex;
+        width: 100%;
+        text-align: left;
+        width: 100%;
+        padding: 0px;
+    }
+
+    .containerPost .conPost table .trAccount td label {
+        display: block;
+        font-weight: 500;
+        margin-top: 5px;
+    }
+
+    .containerPost .conPost table .trAccount td span {
+        padding-left: 5px;
+        margin-top: 5px;
+
+    }
+
+    .containerPost .conPost table tr td:last-child {
+        display: flex;
+        width: 60%;
+        /* border: 1px solid red; */
+        margin: 10px auto;
+    }
+
+    .containerPost .conPost table tr td:last-child button {
+        padding: 6px 0px;
+        margin: auto;
+    }
+}
+.mx-1 {
+    display: flex;
+    flex-direction: column;
+    /* Stack ID and status vertically */
+    align-items: center;
+    /* Center align the text */
+}
+
+.mx-1 a {
+    margin-bottom: 4px;
+    /* Space between full name and ID */
+}
+
+.mx-1 .status {
+    margin-top: 4px;
+    /* Space between ID and status */
+    font-weight: bold;
+}
+
+.status.active {
+    color: green;
+}
+
+.status.inactive {
+    color: red;
+}
+
+/* Modal Container */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Màu nền bán trong suốt */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    transition: opacity 0.3s ease;
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: white;
+    padding: 25px;
+    border-radius: 8px;
+    width: 400px;
+    max-width: 90%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transform: scale(0.9);
+    /* Start small */
+    transition: transform 0.3s ease;
+}
+
+/* Modal Show Effect */
+.modal.show .modal-content {
+    transform: scale(1);
+}
+
+/* Form Elements Styling */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+/* Error Message */
+.error {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+/* Button Styling */
+button {
+    padding: 10px 15px;
+    font-size: 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 10px;
+    text-align: center;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+/* Primary Button */
+button[type="button"]:nth-of-type(1) {
+    background-color: #000;
+    color: white;
+}
+
+button[type="button"]:nth-of-type(1):hover {
+    background-color: #333;
+}
+
+/* Secondary Button */
+button[type="button"]:nth-of-type(2) {
+    background-color: #6c757d;
+    color: white;
+}
+
+button[type="button"]:nth-of-type(2):hover {
+    background-color: #5a6268;
+}
+
+/* Modal Content Form */
+.modal-content form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Make Buttons Inline */
+button[type="button"]:nth-of-type(1),
+button[type="button"]:nth-of-type(2) {
+    width: 48%;
+    /* Make buttons equal width */
+}
+
+/* Modal Header Styling */
+.modal-content h2 {
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+/* Add Underline to Header */
+.modal-content h2::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background-color: #000;
+    bottom: 0;
+    left: 0;
+}
+
+/* Modal Buttons for Help */
+button[type="button"] {
+    background-color: #ccc;
+    /* Grey button for close */
+}
+
+button[type="button"]:hover {
+    background-color: #888;
+}
+
+/* Button Hover Effects */
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Special Help Request Notification */
+button+span {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/* Modal Buttons for Approve/Reject */
+.modal-content button {
+    padding: 10px 20px;
+    background-color: #29292a;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.modal-content button:hover {
+    background-color: #6f6f6f;
+}
+
+.modal-content button:last-child {
+    background-color: #6f6f6f;
+}
+
+.modal-content button:last-child:hover {
+    background-color: #6a6a6a;
+}
+
+/* Button Layout in Modal */
+.modal-content .button-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+/* quanliaccount.css */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+
+.modal-buttons button {
+    padding: 8px 16px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.modal-buttons button:hover {
+    background-color: #0056b3;
+}
+.unlock-requests-table table {
+    width: 100%;
+    border-collapse: collapse;
+    /* Xóa khoảng trống giữa các ô */
+}
+
+.unlock-requests-table th,
+.unlock-requests-table td {
+    padding: 12px 15px;
+    /* Tăng khoảng cách nội dung trong ô */
+    text-align: left;
+    /* Căn lề trái */
+}
+
+.unlock-requests-table th {
+    background-color: #007bff;
+    /* Nền tiêu đề */
+    color: white;
+    font-weight: bold;
+}
+
+.unlock-requests-table td {
+    vertical-align: middle;
+    /* Canh giữa theo chiều dọc */
+}
+
+.unlock-requests-table td img {
+    max-width: 100px;
+    /* Giới hạn kích thước ảnh */
+    height: auto;
+    border-radius: 5px;
+    /* Bo góc ảnh */
+    display: block;
+    margin: 0 auto;
+    /* Căn giữa ảnh */
+}
+
+.unlock-requests-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+    /* Màu nền xen kẽ */
+}
+
+.unlock-requests-table tr:hover {
+    background-color: #f1f1f1;
+    /* Hiệu ứng hover */
+}
+
+.unlock-requests-table th:nth-child(1),
+.unlock-requests-table td:nth-child(1) {
+    width: 25%;
+    /* Chiều rộng cột Email */
+}
+
+.unlock-requests-table th:nth-child(2),
+.unlock-requests-table td:nth-child(2) {
+    width: 30%;
+    /* Chiều rộng cột Lý do */
+}
+
+.unlock-requests-table th:nth-child(3),
+.unlock-requests-table td:nth-child(3) {
+    width: 20%;
+    /* Chiều rộng cột Ảnh minh họa */
+}
+
+.unlock-requests-table th:nth-child(4),
+.unlock-requests-table td:nth-child(4) {
+    width: 25%;
+    /* Chiều rộng cột Ngày yêu cầu */
+}
+/* Căn chỉnh các nút "Phê duyệt" và "Từ chối" */
+.button-container {
+    display: flex;
+    gap: 10px;
+    /* Khoảng cách giữa các nút */
+    justify-content: center;
+    /* Căn giữa các nút */
+}
+
+.button-container button {
+    padding: 8px 16px;
+    /* Điều chỉnh kích thước nút */
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    width: 120px;
+    /* Đảm bảo nút có cùng chiều rộng */
+    font-size: 14px;
+    /* Điều chỉnh kích thước chữ */
+    text-align: center;
+}
+
+.button-container .approve {
+    background-color: green;
+}
+
+.button-container .reject {
+    background-color: red;
+}
+/* Modal style */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.modal img {
+    max-width: 80%;
+    max-height: 80vh;
+}
+
+.close-button {
+    background-color: #f00;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+.modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 90%;
+    max-height: 80%;
+    overflow: hidden;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 30px;
+    color: #fff;
+    cursor: pointer;
+}

@@ -1,0 +1,18 @@
+#InputComment{
+    margin-left: 10px;
+    display: none;
+}
+#InputComment input{
+    border: 1px solid #d2d2d2;
+    padding: 5px 10px;
+    border-radius: 7px;
+}
+#InputComment button{
+    background-color: #219af7;
+    border: none;
+    padding: 5px 10px;
+    color: white;
+    font-weight: 500;
+    border-radius: 7px;
+    margin-left: 10px;
+}

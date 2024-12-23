@@ -1,0 +1,240 @@
+nav {
+    position: relative;
+    border-right: 1px solid #d2d2d2;
+    width: 18%;
+    height: 100vh;
+    padding: 0px 30px;
+  }
+  /* logo ẩn cho tablet */
+  nav .iconlogo {
+    color: black;
+    display: none;
+    font-family: "Arbutus", serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 34px;
+    padding: 10px 0px;
+  }
+  nav h2 {
+    font-family: "Arbutus", serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 34px;
+    margin: 0px;
+    padding: 30px 0px;
+    margin-left: 10px;
+  }
+  nav .container_ul ul {
+    padding: 0px;
+    margin: 0px;
+  }
+  nav .container_ul ul li {
+    list-style: none;
+    margin-bottom: 5px;
+    padding: 10px 10px;
+    border-radius: 10px;
+    transition: all 0.7s;
+    display: flex;
+    align-content: center;
+  }
+  nav .container_ul ul li a {
+    color: #333;
+    text-decoration: none;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+  }
+  nav .container_ul ul li i {
+    font-size: 28px;
+    margin-right: 5px;
+  }
+  nav .container_ul ul .addpost {
+    padding: 5px;
+    border: 2px solid black;
+    border-radius: 8px;
+  }
+  nav .container_ul ul li:hover {
+    background-color: #eeeeee;
+  }
+  /* Quản lí menu và sub-menu */
+.menu-admin {
+  position: relative;
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 10px;
+  color: #333;
+  border-radius: 10px;
+  transition: background-color 0.3s, color 0.3s;
+  width: 100%;
+  justify-content: space-between;
+  background-color: #fff; /* Thêm nền trắng để menu nhìn gọn gàng hơn */
+}
+
+.menu-admin:hover {
+  background-color: #eeeeee;
+  color: #0056b3; /* Màu chữ khi rê chuột vào */
+}
+
+/* Đảm bảo icon và tên menu không bị chồng lên nhau */
+.menu-admin > span {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  justify-content: space-between;
+}
+
+/* Sub-menu */
+.sub-menu {
+  display: none;
+  position: absolute;
+  top: 0; /* Căn chỉnh với menu cha */
+  left: 100%; /* Đưa sub-menu sang bên phải của menu cha */
+  margin-left: 10px; /* Khoảng cách giữa menu cha và sub-menu */
+  background-color: #fff;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+  padding: 10px 0;
+  border-radius: 8px;
+  z-index: 1000;
+  min-width: 200px; /* Đảm bảo độ rộng tối thiểu */
+}
+
+/* Khi hover vào menu-admin, sub-menu sẽ hiển thị */
+.menu-admin:hover .sub-menu {
+  display: block;
+}
+
+/* Mỗi item trong sub-menu */
+.sub-menu li {
+  padding: 10px 15px;
+  color: #333;
+  font-size: 14px;
+  transition: background-color 0.3s, color 0.3s;
+  cursor: pointer;
+}
+
+/* Hover vào từng item trong sub-menu */
+.sub-menu li:hover {
+  background-color: #eeeeee;
+  color: #0056b3;
+}
+
+/* Icon và khoảng cách trong sub-menu */
+.sub-menu li i {
+  font-size: 16px;
+  margin-right: 10px;
+}
+
+/* Đảm bảo layout đẹp khi menu admin được hover */
+.menu-admin {
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  justify-content: space-between;
+}
+
+.sub-menu {
+  position: absolute;
+  top: 0;
+  left: 100%;
+  min-width: 200px;
+  padding: 5px 0;
+  background-color: #fff;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+  /* máy tính bảng */
+@media (min-width: 768px) and (max-width: 1023px) {
+    nav {
+      width: 10%;
+      height: 100vh;
+      border-right: 1px solid #d2d2d2;
+      padding: 20px 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      z-index: 1;
+    }
+    nav .iconlogo {
+      display: block;
+      margin-bottom: 20px;
+    }
+  
+    nav h2 {
+      display: none;
+    }
+  
+    nav .container_ul {
+      width: auto;
+    }
+  
+    nav .container_ul ul {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    nav .container_ul ul li {
+      margin-bottom: 20px;
+      padding: 10px;
+    }
+    .menu-admin #span{
+      display: none;
+    }
+    .menu-admin:hover {
+      background-color: #eeeeee;
+      color: #0056b3; /* Màu chữ khi rê chuột vào */
+    }
+    /* Sub-menu */
+    .sub-menu {
+      display: none;
+    }
+  }
+  /* Mobile */
+  @media (max-width: 767px) {
+    nav {
+      border: none;
+      width: 100%;
+      padding: 0;
+      height: auto;
+      position: relative;
+      z-index: 1;
+    }
+    nav h2 {
+      margin-left: 0;
+      padding: 20px 10px;
+      font-size: 24px;
+    }
+    nav .container_ul ul li a span {
+      display: none;
+    }
+    nav .container_ul ul li {
+      margin-bottom: 0;
+      padding: 10px;
+      line-height: 45px;
+      width: 100%;
+      text-align: center;
+      margin: auto;
+    }
+    nav .container_ul ul li a {
+      margin: auto;
+    }
+    nav .container_ul {
+      display: flex;
+      width: 100%;
+      height: 60px;
+      position: fixed;
+      bottom: 0;
+      z-index: 1;
+      background-color: white;
+      border-top: 1px solid #d2d2d2;
+    }
+    nav .container_ul ul {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+    }
+  }
