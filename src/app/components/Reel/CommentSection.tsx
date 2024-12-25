@@ -77,70 +77,35 @@ const CommentSection: React.FC<CommentSectionProps> = ({
   };
 
   const handleAddComment = async (e: React.KeyboardEvent | React.MouseEvent) => {
-    if (
-      'key' in e && e.key !== 'Enter' || 
-      !newComment.trim() || 
-      !currentUser._id || 
-      !reelId
-    ) return;
+    // Nếu là keypress event và không phải Enter thì return
+    if ('key' in e && e.key !== 'Enter') return;
+    
+    // Kiểm tra các điều kiện khác
+    if (!newComment.trim() || !currentUser._id || !reelId) return;
 
     try {
       setIsLoading(true);
       setError(null);
       
-      // Get reel information
-      const reelResponse = await axios.get(`http://localhost:4000/reel/reelById/${reelId}`);
-      const reelData = reelResponse.data;
+      // If creating new comment - Sửa endpoint thành addReel thay vì addpost
+      const response = await axios.post('http://localhost:4000/comment/addReel', {
+        comment: newComment,
+        idReel: reelId,
+        idAccount: currentUser._id,
+        dateComment: new Date().toISOString()
+      });
       
-      // If replying to a comment
-      if (replyingTo) {
-        const response = await axios.post(`http://localhost:4000/comment/repPost/${replyingTo.commentId}`, {
-          idAccount: currentUser._id,
-          text: newComment
-        });
-        
-        console.log('Add reply response:', response.data);
-        setReplyingTo(null);
-        
-        // Add notification for reply if the comment owner is different from current user
-        if (replyingTo.ownerId !== currentUser._id) {
-          const newNotification = {
-            owner: currentUser._id,
-            idAccount: replyingTo.ownerId,
-            idReel: reelId,
-            content: "đã trả lời bình luận của bạn"
-          };
-          
-          await axios.post('http://localhost:4000/notification/addPost', newNotification);
-        }
-      } else {
-        // If creating new comment
-        const response = await axios.post('http://localhost:4000/comment/addpost', {
-          comment: newComment,
-          idReel: reelId,
-          idAccount: currentUser._id
-        });
-        
-        console.log('Add comment response:', response.data);
-        
-        // Add notification for comment if the reel owner is different from current user
-        if (reelData.idAccount._id !== currentUser._id) {
-          const newNotification = {
-            owner: currentUser._id,
-            idAccount: reelData.idAccount._id,
-            idReel: reelId,
-            content: "đã bình luận về video của bạn"
-          };
-          
-          await axios.post('http://localhost:4000/notification/addPost', newNotification);
-        }
+      console.log('Add comment response:', response.data);
+      
+      // Refresh comments immediately after adding
+      if (response.data) {
+        setNewComment(""); // Clear input
+        await fetchComments(); // Refresh comments
       }
 
-      setNewComment(""); // Clear input
-      await fetchComments(); // Refresh comments
     } catch (error) {
-      console.error("Error adding comment/reply:", error);
-      setError('Failed to add comment/reply');
+      console.error("Error adding comment:", error);
+      setError('Failed to add comment');
     } finally {
       setIsLoading(false);
     }

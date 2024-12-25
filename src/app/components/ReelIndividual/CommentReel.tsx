@@ -38,6 +38,8 @@ interface Video {
     firstName: string;
     lastName: string;
   } | string;
+  content?: string;
+  dateReel?: string;
 }
 
 interface CommentReelProps {
@@ -82,8 +84,16 @@ const CommentReel: React.FC<CommentReelProps> = ({ onClose, video }) => {
     try {
       setIsLoading(true);
       setError(null);
+      console.log('Fetching comments for video:', video._id);
       const response = await axios.get(`http://localhost:4000/comment/commentByReel/${video._id}`);
-      setComments(response.data);
+      console.log('Comments response:', response.data);
+      
+      if (Array.isArray(response.data)) {
+        setComments(response.data);
+      } else {
+        console.error('Invalid response format:', response.data);
+        setError('Invalid response format');
+      }
     } catch (error) {
       console.error("Error fetching comments:", error);
       setError('Failed to load comments');
@@ -103,22 +113,32 @@ const CommentReel: React.FC<CommentReelProps> = ({ onClose, video }) => {
 
       if (replyingTo) {
         // Xử lý reply comment
-        const response = await axios.post(`http://localhost:4000/comment/repPost/${replyingTo.commentId}`, {
-          idAccount: currentUser._id,
-          text: newComment
-        });
-        setReplyingTo(null);
-      } else {
-        // Tạo comment mới
-        const response = await axios.post('http://localhost:4000/comment/addpost', {
-          comment: newComment,
-          idReel: video._id,
+        const response = await axios.post(`http://localhost:4000/comment/reply/${replyingTo.commentId}`, {
+          text: newComment,
           idAccount: currentUser._id
         });
-      }
 
-      setNewComment(""); // Clear input
-      await fetchComments(); // Refresh comments
+        console.log('Reply response:', response.data);
+        
+        if (response.data) {
+          setNewComment(""); // Clear input
+          setReplyingTo(null); // Reset replyingTo state
+          await fetchComments(); // Refresh comments
+        }
+      } else {
+        // Add new comment
+        const response = await axios.post('http://localhost:4000/comment/addReel', {
+          comment: newComment,
+          idReel: video._id,
+          idAccount: currentUser._id,
+          dateComment: new Date().toISOString()
+        });
+
+        if (response.data) {
+          setNewComment("");
+          await fetchComments();
+        }
+      }
     } catch (error) {
       console.error("Error adding comment/reply:", error);
       setError('Failed to add comment/reply');
@@ -292,8 +312,9 @@ const CommentReel: React.FC<CommentReelProps> = ({ onClose, video }) => {
                 placeholder={replyingTo ? "Add a reply..." : "Thêm bình luận..."}
                 value={newComment}
                 onChange={(e) => setNewComment(e.target.value)}
-                onKeyPress={(e) => {
+                onKeyDown={(e) => {
                   if (e.key === 'Enter') {
+                    e.preventDefault(); // Ngăn chặn hành vi mặc định của Enter
                     handleAddComment();
                   }
                 }}

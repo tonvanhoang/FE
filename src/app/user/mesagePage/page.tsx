@@ -1,10 +1,12 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import "../mesagePage/mesage.css";
 import Nav from "../navbar/page";
 import { io } from "socket.io-client";
 import ShowAccount from "../componentAccount/image";
 import Link from "next/link";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPaperPlane, faImage } from '@fortawesome/free-solid-svg-icons';
 
 interface User {
   _id: string;
@@ -29,6 +31,8 @@ export default function MessagePage() {
   const [newMessage, setNewMessage] = useState("");
   const [socket, setSocket] = useState<any>(null);
   const [searchTerm, setSearchTerm] = useState("");
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const messageEndRef = useRef<HTMLDivElement>(null);
 
   // Khởi tạo socket connection
   useEffect(() => {
@@ -72,6 +76,15 @@ export default function MessagePage() {
     fetchUsers();
   }, [currentUser]);
 
+  const scrollToBottom = () => {
+    messageEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  // Thêm useEffect để scroll xuống khi messages thay đổi
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
   // Handle click vào user để mở chat
   const handleUserSelect = async (user: User) => {
     setSelectedUser(user);
@@ -89,6 +102,8 @@ export default function MessagePage() {
       }));
 
       setMessages(transformedMessages);
+      // Scroll xuống sau khi load tin nhắn
+      setTimeout(scrollToBottom, 100); // Thêm một chút delay để đảm bảo messages đã render
     } catch (error) {
       console.error("Error fetching messages:", error);
     }
@@ -121,6 +136,34 @@ export default function MessagePage() {
       }
     } catch (error) {
       console.error("Error sending message:", error);
+    }
+  };
+
+  const handleFileSelect = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file || !currentUser || !selectedUser) return;
+
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('senderId', currentUser._id);
+    formData.append('receiverId', selectedUser._id);
+
+    try {
+      const res = await fetch('http://localhost:4000/message/send-media', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (res.ok) {
+        const messageData = await res.json();
+        const newMsg = {
+          ...messageData,
+          isSentByCurrentUser: true,
+        };
+        setMessages((prev) => [...prev, newMsg]);
+      }
+    } catch (error) {
+      console.error('Error sending file:', error);
     }
   };
 
@@ -202,6 +245,7 @@ export default function MessagePage() {
                 </div>
               </div>
             ))}
+            <div ref={messageEndRef} />
           </div>
 
           <div className="message-input">
@@ -212,7 +256,22 @@ export default function MessagePage() {
               placeholder="Type a message..."
               onKeyPress={(e) => e.key === "Enter" && handleSendMessage()}
             />
-            <button onClick={handleSendMessage}>Send</button>
+            
+            <input
+              type="file"
+              ref={fileInputRef}
+              className="file-input"
+              accept="image/*,video/*"
+              onChange={handleFileSelect}
+              id="file-input"
+            />
+            <label htmlFor="file-input" className="file-label">
+              <FontAwesomeIcon icon={faImage} />
+            </label>
+
+            <button onClick={handleSendMessage}>
+              <FontAwesomeIcon icon={faPaperPlane} />
+            </button>
           </div>
         </div>
       ) : (
