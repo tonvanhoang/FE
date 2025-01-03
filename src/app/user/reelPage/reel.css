@@ -549,7 +549,7 @@
   align-items: center;
   gap: 12px;
   background: #fafafa;
-  border: 1px solid #dbdbdb;
+  border: 1px solid black;
   border-radius: 22px;
   padding: 6px 16px;
 }
@@ -561,6 +561,7 @@
   background: transparent;
   font-size: 14px;
   padding: 8px 0;
+  color: black;
 }
 
 .comment-input-wrapper input::placeholder {

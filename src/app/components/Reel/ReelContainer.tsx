@@ -1,6 +1,7 @@
 // ReelContainer.tsx
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import ReelItem from "./ReelItem";
+import io from "socket.io-client";
 
 interface Reel {
   _id: string;
@@ -24,32 +25,67 @@ interface ReelItemProps {
 const ReelContainer: React.FC = () => {
   const [reels, setReels] = useState<Reel[]>([]);
   const [loading, setLoading] = useState(true);
+  const socketRef = useRef<any>(null);
+  const currentUser = JSON.parse(localStorage.getItem("user") || "{}");
 
   useEffect(() => {
-    const fetchReels = async () => {
+    // Kết nối socket
+    socketRef.current = io('http://localhost:4000');
+
+    // Lắng nghe sự kiện cập nhật like
+    socketRef.current.on('reelLikeUpdate', (update: {
+      reelId: string;
+      isLiked: boolean;
+      totalLikes: number;
+      userId: string;
+    }) => {
+      setReels(prevReels => 
+        prevReels.map(reel => 
+          reel._id === update.reelId 
+            ? {
+                ...reel,
+                likes: update.totalLikes,
+                likedBy: update.isLiked 
+                  ? [...(reel.likedBy || []), update.userId]
+                  : (reel.likedBy || []).filter(id => id !== update.userId)
+              }
+            : reel
+        )
+      );
+    });
+
+    // Cleanup function
+    return () => {
+      if (socketRef.current) {
+        socketRef.current.disconnect();
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    const fetchUnviewedReels = async () => {
       try {
-        const response = await fetch(`http://localhost:4000/reel/allReel`);
-        if (!response.ok) throw new Error("Failed to fetch reels");
-        const data = await response.json();
-
-        // Sắp xếp reels theo thời gian mới nhất
-        const sortedReels = Array.isArray(data)
-          ? data.sort(
-              (a, b) =>
-                new Date(b.dateReel).getTime() - new Date(a.dateReel).getTime()
-            )
-          : [];
-
-        setReels(sortedReels);
+        setLoading(true);
+        if (!currentUser._id) {
+          // Nếu không có user, lấy tất cả reels
+          const response = await fetch('http://localhost:4000/reel/all');
+          const data = await response.json();
+          setReels(data);
+        } else {
+          // Nếu có user, lấy reels chưa xem
+          const response = await fetch(`http://localhost:4000/reel/unviewed/${currentUser._id}`);
+          const data = await response.json();
+          setReels(data);
+        }
       } catch (error) {
-        console.error("Error fetching reels:", error);
+        console.error('Error fetching reels:', error);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchReels();
-  }, []);
+    fetchUnviewedReels();
+  }, [currentUser._id]);
 
   if (loading) {
     return <div>Loading...</div>;

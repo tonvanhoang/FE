@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import "./addReel.css";
+import axios from "axios";
 
 const CLOUDINARY_UPLOAD_PRESET = "reel_load_preset_0123";
 const CLOUDINARY_CLOUD_NAME = "dqso33xek";
@@ -70,63 +71,28 @@ const UploadReel = () => {
         alert("Vui lòng đăng nhập để upload reel");
         return;
       }
+      const user = JSON.parse(userStr);
 
-      // Parse user data để lấy _id
-      const userData = JSON.parse(userStr);
-      const userId = userData._id;
+      // Upload video lên Cloudinary
+      const formData = new FormData();
+      formData.append("file", video as File);
+      formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
 
-      if (!userId || !userInfo) {
-        alert("Không tìm thấy thông tin người dùng");
-        return;
-      }
-
-      // Upload video to Cloudinary
-      const cloudinaryFormData = new FormData();
-      cloudinaryFormData.append("file", video);
-      cloudinaryFormData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
-
-      const cloudinaryResponse = await fetch(
+      const uploadResponse = await axios.post(
         `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/video/upload`,
-        {
-          method: "POST",
-          body: cloudinaryFormData,
-        }
+        formData
       );
 
-      const cloudinaryData = await cloudinaryResponse.json();
-
-      if (!cloudinaryResponse.ok) {
-        throw new Error(`Lỗi Cloudinary: ${JSON.stringify(cloudinaryData)}`);
-      }
-
-      // Save to MongoDB với idAccount và thông tin user
-      const reelData = {
-title,
+      // Tạo reel mới với idAccount
+      const response = await axios.post(`${API_URL}/reel/add`, {
+        video: uploadResponse.data.secure_url,
+        title,
         content,
-        idAccount: userId,
-        firstName: userInfo.firstName, // Lấy từ userInfo đã fetch
-        lastName: userInfo.lastName, // Lấy từ userInfo đã fetch
-        avata: userInfo.avatar, // Lấy từ userInfo đã fetch
-        video: cloudinaryData.secure_url,
-        dateReel: new Date().toISOString().split("T")[0],
-        likes: 0,
-        likedBy: [],
-        comments: 0,
-        views: 0,
-      };
-
-      const response = await fetch("http://localhost:4000/reel/add", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(reelData),
+        idAccount: user._id,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        avata: user.avata
       });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || "Lỗi khi lưu reel");
-      }
 
       alert("Upload reel thành công!");
       router.push("/user/reelPage");
