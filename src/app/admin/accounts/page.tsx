@@ -46,25 +46,31 @@ const AccountManagement = () => {
     }, []);
 
     const fetchUnlockRequests = async () => {
-        try {
-            const response = await fetch("http://localhost:4000/account/getUnlockRequests");
-            if (response.ok) {
-                const data = await response.json();
-                setUnlockRequests(data.unlockRequests);
-                const pendingCount = data.unlockRequests.filter(
-                    (request: UnlockRequest) => request.status === "pending"
-                ).length;
+    try {
+        const response = await fetch("http://localhost:4000/account/getUnlockRequests");
+        if (response.ok) {
+            const data = await response.json();
 
-                setPendingRequestsCount(pendingCount);
-                alert("Lấy danh sách yêu cầu mở khóa thành công.");
-            } else {
-                alert("Không thể lấy danh sách yêu cầu mở khóa.");
-            }
-        } catch (error) {
-            console.error("Error fetching unlock requests:", error);
-            alert("Đã xảy ra lỗi khi lấy danh sách yêu cầu.");
+            // Loại bỏ các email bị trùng lặp
+            const uniqueRequests = data.unlockRequests.filter((request: UnlockRequest, index: number, self: UnlockRequest[]) =>
+                index === self.findIndex((r) => r.email === request.email)
+            );
+
+            setUnlockRequests(uniqueRequests);
+            const pendingCount = uniqueRequests.filter(
+                (request: UnlockRequest) => request.status === "pending"
+            ).length;
+
+            setPendingRequestsCount(pendingCount);
+            alert("Lấy danh sách yêu cầu mở khóa thành công.");
+        } else {
+            alert("Không thể lấy danh sách yêu cầu mở khóa.");
         }
-    };
+    } catch (error) {
+        console.error("Error fetching unlock requests:", error);
+        alert("Đã xảy ra lỗi khi lấy danh sách yêu cầu.");
+    }
+};
 
     const handleBlockAccount = async (id: string, currentStatus: string) => {
         try {
@@ -81,7 +87,7 @@ const AccountManagement = () => {
             );
 
             if (response.ok) {
-                setAccounts(accounts.map(
+                setAccounts(accounts.map(   
                     (account) => account._id === id
                         ? { ...account, status: newStatus }
                         : account
@@ -187,6 +193,7 @@ const AccountManagement = () => {
             }
         }
     };
+    
 
     return (
         <>
