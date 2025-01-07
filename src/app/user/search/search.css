@@ -1,0 +1,130 @@
+.ulnavcon {
+    position: absolute;
+    border: 1px solid #d2d2d2;
+    height: 100vh;
+    width: 160%;
+    top: 50%;
+    left: 180%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    background-color: white;
+    display: none;
+  }
+.ulnavcon .containercon {
+    width: 100%;
+    margin: auto;
+  }
+.ulnavcon h4 {
+    width: 90%;
+    margin: 30px auto;
+  }
+.ulnavcon .containercon form {
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    margin: 25px auto;
+  }
+.ulnavcon .containercon .Divform::after {
+    content: "";
+    background-color: #d2d2d2;
+    height: 0.5px;
+    width: 100%;
+    display: block;
+  }
+.ulnavcon .containercon form input {
+    border: 1px solid #d2d2d2;
+    padding: 5px 10px;
+    width: 285px;
+    border-radius: 5px;
+  }
+.ulnavcon .containercon form button {
+    background-color: #333;
+    color: white;
+    font-weight: 500;
+    border: none;
+    width: 85px;
+    border-radius: 5px;
+  }
+.ulnavcon .containercon .ganday {
+    width: 90%;
+    margin: auto;
+    overflow-y: scroll;
+    max-height: 78vh;
+    z-index: 1;
+  }
+.ulnavcon .containercon .ganday::-webkit-scrollbar {
+    display: none;
+  }
+.ulnavcon .containercon .ganday h6 {
+    margin: 25px 0px;
+  }
+.ulnavcon .containercon .ganday .lichsu {
+    margin-bottom: 5px;
+    display: flex;
+    justify-content: space-between;
+  }
+.ulnavcon .containercon .ganday .lichsu a {
+    font-size: 16px;
+    font-size: 500;
+  }
+.ulnavcon .containercon .ganday .lichsu i {
+    font-size: 16px;
+    color: gray;
+    transition: all 0.5s;
+    display: flex;
+    margin-top: 5px;
+  }
+.ulnavcon .containercon .ganday .lichsu i:hover {
+    color: red;
+  }
+.ulnavcon .containercon .ganday .lichsu i:hover {
+    cursor: pointer;
+  }
+  
+  /* máy tính bảng */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .ulnavcon {
+      height: 100vh;
+      width: 400px;
+      left: 270px;
+      position: fixed;
+    }
+    a span {
+      display: none;
+    }
+    .ulnavcon .containercon form input {
+      margin-right: 5px;
+    }
+  }
+  /* Mobile */
+  @media (max-width: 767px) {
+    .ulnavcon {
+      display: block;
+      width: 100%;
+      height: calc(100vh - 60px);
+      top: 0;
+      left: 0;
+      position: fixed;
+      transform: none;
+      overflow: hidden;
+    }
+    .ulnavcon .containercon form input {
+      padding: 0px 5px;
+      width: 280px;
+    }
+    .ulnavcon .containercon .ganday {
+      max-height: 65vh;
+    }
+  
+    .ulnavcon .containercon .ganday h6 {
+      text-align: left;
+    }
+  
+    .ulnavcon .containercon .ganday .lichsu a {
+      margin: 0px;
+    }
+    .ulnavcon .containercon .ganday .lichsu i {
+      margin-top: 15px;
+    }
+  }
+  

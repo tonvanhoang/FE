@@ -1,0 +1,152 @@
+#registerPage{
+    width: 50%;
+    margin-top: 40px;
+}
+#registerPage .container_con .formregister .item-1{
+    width: 45%;
+    border: 1px solid #d2d2d2;
+}
+#registerPage .container_con .formregister .item-1 h2{
+    font-family: "Arbutus", serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 48px;
+}
+#registerPage .container_con .formregister .item-1 div{
+    width: 90%;
+}
+#registerPage .container_con .formregister .item-1 div label{
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+#registerPage .container_con .formregister .item-1 div input{
+    width: 100%;
+    border: 1px solid #d2d2d2;
+    padding: 8px 5px;
+    font-size: 14px;
+}
+#registerPage .container_con .formregister .item-1 div span{
+    font-size: 14px;
+}
+#registerPage .container_con .formregister .item-1 .quenmatkhau{
+    width: 90%;
+    display: flex;
+    justify-content: flex-end;
+}
+#registerPage .container_con .formregister .item-1 .quenmatkhau a{
+    color: black;
+    font-size: 14px;
+    font-weight: 600;
+}
+/* loggin */
+#registerPage .container_con .formregister .item-1 .btnLogin{
+    width: 100%;
+}
+#registerPage .container_con .formregister .item-1 .btnLogin button{
+    width: 130px;
+    padding: 0px;
+    padding: 7px 5px;
+    border: none;
+    background-color: #333;
+    border-radius: 5px;
+    margin-top: 25px;
+    transition: all 0.5s;
+    margin-bottom: 30px;
+}
+#registerPage .container_con .formregister .item-1 .btnLogin button:hover{
+    background-color: black;
+}
+#registerPage .container_con .formregister .item-1 .btnLogin button a{
+    color: white;
+    font-weight:500;
+}
+#registerPage .container_con .formregister .item-2{
+    color: gray;
+    width:90%;
+    line-height: 1px;
+    display: flex;
+    justify-content: center;
+    margin: 20px auto;
+    align-content: center;
+    height: 30px;
+}
+#registerPage .container_con .formregister .item-2 .col-4{
+    width: 100px;
+    height: 1px;
+    background-color: gray;
+}
+#registerPage .container_con .formregister .item-2 .col-1{
+    width: 40px;
+}
+#registerPage .container_con .formregister .item-3,#registerPage .container_con .formregister .item-4,#registerPage .container_con .formregister .item-5{
+    width: 45%;
+    margin: auto;
+    border: 1px solid #d2d2d2;
+    text-align: center;
+    font-weight: 400;
+}
+#registerPage .container_con .formregister .item-3 button{
+    background-color: white;
+    border: none;
+    width: 100%;
+    padding: 10px 0px;
+}
+/* item3 */
+#registerPage .container_con .formregister .item-3 button a{
+    color: #0095F6;
+    font-weight: 500;
+    transition: all 0.7s;
+}
+#registerPage .container_con .formregister .item-3 button a:hover{
+    color: #0033FF;
+}
+/* máy tính bảng */
+@media (min-width: 768px) and (max-width: 1023px) {
+ /* chung */
+#registerPage{
+    width: 96%;
+    margin-top: 150px;
+}
+#registerPage .container_con .formregister .item-1{
+    width: 96%;
+    border: 1px solid #d2d2d2;
+}
+#registerPage .container_con .formregister .item-3,#registerPage .container_con .formregister .item-4,#registerPage .container_con .formregister .item-5{
+    width: 96%;
+}
+#registerPage .container_con .formregister .item-1 .btnLogin button{
+    margin-top: 10px;
+    margin-bottom: 35px;
+}
+#registerPage .container_con .formregister .item-2{
+    margin: 25px auto;
+}
+#registerPage .container_con .formregister .item-2 .col-4{
+    width: 200px;
+    height: 1px;
+    background-color: gray;
+}
+}
+/* điện thoại */
+@media (max-width: 767px) {
+    /* chung */
+    #registerPage{
+        width: 90%;
+        margin-top: 80px;
+    }
+    #registerPage .container_con .formregister .item-1{
+        width: 96%;
+        border: 1px solid #d2d2d2;
+    }
+    #registerPage .container_con .formregister .item-3,#registerPage .container_con .formregister .item-4,#registerPage .container_con .formregister .item-5{
+        width: 96%;
+    }
+    #registerPage .container_con .formregister .item-1 .btnLogin button{
+        margin-top: 5px;
+        margin-bottom: 20px;
+    }
+    #registerPage .container_con .formregister .item-2{
+        margin: 10px auto;
+    }
+}

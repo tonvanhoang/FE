@@ -1,0 +1,93 @@
+#formadd {
+    width: 50%;
+    height: 300px;
+    margin: 100px auto;
+    background-color: #f9f9f9;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); 
+    border-radius: 10px; 
+    padding: 20px;
+}
+
+#formadd form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#formadd form .caption {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+#formadd form .caption label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+    font-size: 16px;
+}
+
+#formadd form .caption input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.05); /* Thêm đổ bóng bên trong input */
+}
+
+#formadd form div {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+#formadd form div label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+    font-size: 16px;
+}
+
+#formadd form div input[type="file"] {
+    width: 100%;
+    padding: 8px;
+    font-size: 14px;
+}
+
+#formadd form button {
+    background-color: #219af7;
+    padding: 10px 20px;
+    color: white;
+    font-weight: 500;
+    border-radius: 7px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+#formadd form button:hover {
+    background-color: #1a85cf; /* Màu khi hover vào nút */
+}
+
+#formadd form button:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(33, 154, 247, 0.5); /* Thêm hiệu ứng khi focus */
+}
+@media (max-width: 767px){
+    #formadd {
+        width: 90%;
+        margin: 150px auto;
+        height: 280px;
+
+    }
+    
+}
+@media (min-width: 768px) and (max-width: 1023px){
+    #formadd {
+        width: 70%;
+        margin: 250px auto;
+        height: 280px;
+
+    }
+}

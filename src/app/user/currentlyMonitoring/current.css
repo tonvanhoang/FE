@@ -1,0 +1,101 @@
+
+  /* người theo dõi */
+  #containerdangtheodoi{
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+    display: none;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+  }
+  #containerdangtheodoi .childnguoitheodoi{
+    background-color: white;
+    width: 40%;
+    border: 1px solid #d2d2d2;
+    border-radius: 20px;
+    margin: 100px auto;
+    text-align: center;
+  }
+  #containerdangtheodoi .childnguoitheodoi .header_content{
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    margin: auto;
+  }
+  #containerdangtheodoi .childnguoitheodoi .header_content i{
+    line-height: 50px;
+    font-weight: bold;
+    font-size: 20px;
+    transition: all 0.5s;
+  }
+  #containerdangtheodoi .childnguoitheodoi .header_content i:hover{
+    cursor: pointer;
+    color: red;
+  }
+  #containerdangtheodoi .childnguoitheodoi h5{
+    padding: 10px;
+    margin: 0;
+  }
+  #containerdangtheodoi .childnguoitheodoi hr{
+    margin: 0;
+  }
+  #containerdangtheodoi .childnguoitheodoi input{
+    width: 90%;
+    margin: 10px 0px;
+    border: 1px solid #d2d2d2;
+    padding: 5px;
+    padding-left: 10px;
+    border-radius: 10px;
+  }
+  #containerdangtheodoi .childnguoitheodoi .content{
+    max-height: 50vh;
+    overflow: auto;
+  }
+  #containerdangtheodoi .childnguoitheodoi .item{
+    display: flex;
+    width: 90%;
+    margin: 10px auto;
+    justify-content: space-between;
+  }
+  #containerdangtheodoi .childnguoitheodoi .item .account img{
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 200px;
+  }
+  #containerdangtheodoi .childnguoitheodoi .item .account a{
+    text-decoration: none;
+    color: black;
+    font-weight: 500;
+  }
+  #containerdangtheodoi .childnguoitheodoi .item button{
+    background-color: #d2d2d2;
+    border: none;
+    border-radius: 10px;
+    padding: 5px 15px;
+    transition: all 0.5s;
+  }
+  #containerdangtheodoi .childnguoitheodoi .item button:hover{
+    background-color: gray;
+  }
+  #containerdangtheodoi .childnguoitheodoi .item button a{
+    color: black;
+    text-decoration: none;
+  }
+  /* Máy tính bảng */
+  @media (min-width: 768px) and (max-width: 1023px) {
+    /* người theo dõi */
+    #containerdangtheodoi .childnguoitheodoi{
+      width: 60%;
+    }
+  }
+  /* Điện thoại */
+  @media (max-width: 767px) {
+    /* người theo dõi */
+    #containerdangtheodoi .childnguoitheodoi{
+      width: 90%;
+    }
+  }
+  

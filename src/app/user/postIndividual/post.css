@@ -1,0 +1,53 @@
+
+  .content-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+    width: 100%;
+  }  
+  /* Layout 9 ảnh */
+  .photo-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    width: 90%;
+    margin: auto;
+
+  }
+  
+  .photo-row {
+    width: 32%;
+    height: 60vh;
+    justify-content: center;
+  }
+  .photo-row:hover{
+    cursor: pointer;
+  }
+  .photo-row img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  /* Máy tính bảng */
+  @media (min-width: 768px) and (max-width: 1023px) {
+   
+    .photo-grid {
+      gap: 25px;
+    }
+    .photo-row {
+      width: 30%;
+      height: 20vh;
+    }
+  }
+  /* Điện thoại */
+  @media (max-width: 767px) {
+    .photo-grid {
+      gap: 17px;
+    }
+    .photo-row {
+      width: 30%;
+      height: 20vh;
+    }
+  }
+  

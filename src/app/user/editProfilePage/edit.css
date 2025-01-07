@@ -1,0 +1,237 @@
+    .edit-profile {
+      width: 82%;
+      margin: 10px auto;
+    }
+    .edit-profile h3 {
+      width: 80%;
+      margin: 20px auto;
+    }
+    .profile-form {
+      display: flex;
+      flex-direction: column;
+      width: 80%;
+      margin: 0 auto;
+    }
+    .profile-picture {
+      display: flex;
+      align-items: center;
+      margin-bottom: 25px;
+    }
+    .profile-picture .img{
+      position: relative;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+    .profile-picture img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+    }
+    .profile-picture .img:hover{
+      cursor: pointer;
+      transition: all 0.5s;
+    }
+    .profile-picture .img:hover .addAvatar{
+      display: block;
+    }
+    .profile-picture .addAvatar{
+      display: none;
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      width: 80px;
+      height: 80px;
+      background-color: rgba(0, 0, 0, 0.5);
+      border-radius: 50%;
+    }
+  
+    .profile-picture .addAvatar i{
+      color: white;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%,-50%);
+      font-size: 20px;
+    }
+    .profile-picture a{
+      text-decoration: none;
+      color: black;
+      font-weight: 500;
+      font-size: 18px;
+    }
+    .form-columns {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+    }
+    .profile-form-column {
+      width: 48%;
+    }
+    .profile-form .form-group {
+      margin-bottom: 15px;
+      padding: 0px;
+    }
+    .profile-form label {
+      margin-bottom: 5px;
+      font-weight: 500;
+    }
+    .profile-form .form-group .content{
+      display: flex;
+      align-items: center;
+    }
+    .profile-form .form-group .content i{
+      margin-left: 10px;
+      transition:all 0.5s;
+      font-size: 18px;
+    }
+    .profile-form .form-group .content i:hover{
+      cursor: pointer;
+      font-size: 24px;
+      color: gray;
+    }
+    .profile-form .form-group .content p{
+      margin: 0px;
+    }
+    .profile-form .btn{
+      padding: 0px;
+    }
+    .profile-form .btn .btndelete{
+      margin-top: 30px;
+      background-color:red;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      padding: 5px 20px;
+    }
+    /* formedit */
+    #formEdit{
+      border: 1px solid #d2d2d2;
+      position: fixed;
+      top: 0px;
+      left: 0px;
+      background-color: rgba(0,0,0,0.5);
+      z-index: 1;
+      width: 100%;
+      height: 100vh;
+      display: none;
+    }
+    #formEdit #closeCart{
+      float: right;
+      font-size: 30px;
+      margin-top: 15px;
+      margin-right: 30px;
+      font-weight: bold;
+      color: white;
+      transition: all 0.5s;
+    }
+    #formEdit #closeCart:hover{
+      color: red;
+      cursor: pointer;
+    }
+    #formEdit form{
+      width: 40%;
+      background-color: white;
+      margin: 100px auto;
+      border-radius: 10px;
+    }
+    #formEdit form h4{
+      text-align: center;
+      margin: 0;
+      padding: 10px 0px;
+    }
+    #formEdit form hr{
+      margin: 0px;
+      margin-bottom: 20px;
+    }
+    #formEdit form .Input{
+      width: 90%;
+      margin: auto;
+    }
+    #formEdit form .Input label{
+      font-weight: 500;
+    }
+    #formEdit form .btncapnhat{
+      text-align: center;
+  
+    }
+    #formEdit form .btncapnhat button{
+      background-color: #333;
+      color: white;
+      font-weight: 500;
+      margin-bottom: 20px;
+      margin-top: 10px;
+      border-radius: 5px;
+      padding: 3px 20px;
+    }
+    @media (min-width: 768px) and (max-width: 1023px) {
+        #formEdit form{
+          width: 80%;
+          margin: 190px auto;
+        }
+      }
+    @media (max-width: 767px) {
+      /* hồ sơ */
+      .edit-profile h3 {
+        margin: 0;
+        padding-top: 0px;
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      .edit-profile{
+        margin: auto;
+      }
+      .form-columns {
+        display: block;
+      }
+      .profile-form {
+        width: 100%;
+      }
+      .profile-form-column {
+        width: 100%;
+      }
+      .profile-form .btn{
+        padding: 0px;
+        width: 100%;
+      }
+      .profile-form .btn .btndelete{
+        margin-top: 30px;
+        width: 150px;
+        margin-bottom: 100px;
+      }
+      /* formEdit */
+      #formEdit form{
+        width: 90%;
+        margin: 150px auto;
+      }
+    }
+    
+    .profile-picture .addAvatar label {
+      cursor: pointer;
+      display: block;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .profile-picture .addAvatar i {
+      color: white;
+      font-size: 20px;
+    }
+
+    .profile-picture .addAvatar input[type="file"] {
+      display: none;
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .bi-hourglass-split {
+      animation: spin 1s linear infinite;
+    }
+    
