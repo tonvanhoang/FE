@@ -32,14 +32,23 @@ interface HelpRequestFormValues {
   content: string; // Reason for unlock request
   image: File | null;
 }
-
+interface ResetPasswordFormValues {
+  email: string;
+  otp: string;
+  newPassword: string;
+  confirmPassword: string,
+}
 export default function Login() {
   const router = useRouter();
-  const [lockedOut, setLockedOut] = useState<boolean>(false);
+ const [lockedOut, setLockedOut] = useState<boolean>(false);
   const [loginError, setLoginError] = useState<string | null>(null);
   const [loginAttempts, setLoginAttempts] = useState<number>(0);
   const [showHelpModal, setShowHelpModal] = useState<boolean>(false);
-
+  const [showResetPasswordModal, setShowResetPasswordModal] = useState<boolean>(false);
+  const [showOtpForm, setShowOtpForm] = useState<boolean>(false);
+  const [showNewPasswordForm, setShowNewPasswordForm] = useState<boolean>(false);
+  const [countdown, setCountdown] = useState<number>(60);
+  
   useEffect(() => {
     const attempts = Number(localStorage.getItem('loginAttempts')) || 0;
     setLoginAttempts(attempts);
@@ -56,6 +65,13 @@ export default function Login() {
       return () => clearTimeout(unlockTimer);
     }
   }, [lockedOut]);
+  useEffect(() => {
+    let timer: NodeJS.Timeout;
+    if (showOtpForm && countdown > 0) {
+      timer = setTimeout(() => setCountdown(countdown - 1), 1000);
+    }
+    return () => clearTimeout(timer);
+  }, [showOtpForm, countdown]);
 
   const handleLoginAttempt = (newAttempts: number) => {
     localStorage.setItem('loginAttempts', newAttempts.toString());
@@ -165,7 +181,93 @@ export default function Login() {
       return () => clearTimeout(errorTimeout);
     }
   }, [loginError]);
+const resetPasswordFormik = useFormik<ResetPasswordFormValues>({
+  initialValues: {
+    email: '',
+    otp: '',
+    newPassword: '',
+    confirmPassword: '',
+  },
+  validationSchema: Yup.object({
+    email: Yup.string().email('Email không hợp lệ').required('Bắt buộc'),
+    otp: Yup.string().required('Bắt buộc'),
+    newPassword: Yup.string()
+      .min(6, 'Mật khẩu phải có ít nhất 6 ký tự')
+      .matches(/[A-Z]/, 'Mật khẩu phải chứa ít nhất một chữ hoa')
+      .matches(/[0-9]/, 'Mật khẩu phải chứa ít nhất một chữ số')
+      .matches(/[!@#$%^&*]/, 'Mật khẩu phải chứa ít nhất một ký tự đặc biệt (!@#$%^&*...)')
+      .required('Bắt buộc'),
+    confirmPassword: Yup.string()
+      .oneOf([Yup.ref('newPassword'), ], 'Mật khẩu xác nhận không khớp')
+      .required('Bắt buộc'),
+  }),
+  onSubmit: async (values) => {
+    try {
+      const res = await fetch('http://localhost:4000/account/reset-password', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(values),
+      });
 
+      if (!res.ok) {
+        const errorData: ErrorResponse = await res.json();
+        throw new Error(errorData.message || 'Không thể đổi mật khẩu.');
+      }
+
+      alert('Đổi mật khẩu thành công!');
+      setShowResetPasswordModal(false);
+    } catch (error: any) {
+      alert(error.message || 'Đã xảy ra lỗi khi đổi mật khẩu.');
+    }
+  },
+});
+
+
+ const sendOtp = async (email: string) => {
+  try {
+    const res = await fetch('http://localhost:4000/account/send-otp', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email }),
+    });
+
+    if (!res.ok) {
+      const errorData: ErrorResponse = await res.json();
+      throw new Error(errorData.message || 'Không thể gửi OTP.');
+    }
+
+    alert('OTP đã được gửi đến email của bạn!');
+    setShowOtpForm(true); // Chuyển sang form xác nhận OTP
+    setCountdown(60); // Reset countdown timer
+  } catch (error: any) {
+    alert(error.message || 'Đã xảy ra lỗi khi gửi OTP.');
+  }
+};
+const verifyOtp = async (email: string, otp: string) => {
+    try {
+      const res = await fetch('http://localhost:4000/account/verify-otp', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, otp }),
+      });
+
+      if (!res.ok) {
+        const errorData: ErrorResponse = await res.json();
+        throw new Error(errorData.message || 'OTP không hợp lệ hoặc đã hết hạn.');
+      }
+
+      alert('OTP xác minh thành công!');
+      setShowNewPasswordForm(true); // Chuyển sang form đặt lại mật khẩu
+    } catch (error: any) {
+      alert(error.message || 'Đã xảy ra lỗi khi xác minh OTP.');
+    }
+  };
   return (
     <>
       <div className="container" id="loginPage">
@@ -249,9 +351,16 @@ export default function Login() {
                   >
                     Trợ Giúp
                   </button>
-                  <a href="#/" className="text-decoration-none">
-                    Quên mật khẩu?
-                  </a>
+                        <button
+                            type="button"
+                            onClick={() => {
+                              setShowResetPasswordModal(true);
+                              setShowOtpForm(false);
+                              setShowNewPasswordForm(false);
+                            }}
+                              >
+                      Quên mật khẩu?
+                  </button>
                 </div>
 
                 <div className="text-center btnLogin">
@@ -356,7 +465,130 @@ export default function Login() {
     </div>
   </div>
 )}
+    {/* Form gửi OTP */}
+    {showResetPasswordModal && !showOtpForm && (
+      <div className="modal" style={{ display: 'block' }}>
+        <div className="modal-content">
+          <span className="close" onClick={() => setShowResetPasswordModal(false)}>&times;</span>
+          <h2>Gửi mã OTP</h2>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              sendOtp(resetPasswordFormik.values.email);
+            }}
+          >
+            <div className="mb-2">
+              <label>Email</label>
+              <input
+                type="email"
+                id="email"
+                placeholder="Nhập email của bạn..."
+                value={resetPasswordFormik.values.email}
+                onChange={resetPasswordFormik.handleChange}
+                onBlur={resetPasswordFormik.handleBlur}
+                className={resetPasswordFormik.touched.email && resetPasswordFormik.errors.email ? 'is-invalid' : ''}
+              />
+              {resetPasswordFormik.touched.email && resetPasswordFormik.errors.email && (
+                <div className="text-danger">{resetPasswordFormik.errors.email}</div>
+              )}
+            </div>
+            <div className="text-center">
+              <button type="submit" disabled={!resetPasswordFormik.values.email}>
+                Gửi OTP
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    )}
+    {/* Form xác nhận OTP */}
+        {showOtpForm && !showNewPasswordForm && (
+          <div className="modal" style={{ display: 'block' }}>
+            <div className="modal-content">
+              <span className="close" onClick={() => setShowOtpForm(false)}>&times;</span>
+              <h2>Xác nhận mã OTP</h2>
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  verifyOtp(resetPasswordFormik.values.email, resetPasswordFormik.values.otp);
+                }}
+              >
+                <div className="mb-2">
+                  <label>OTP</label>
+                  <input
+                    type="text"
+                    id="otp"
+                    placeholder="Nhập mã OTP..."
+                    value={resetPasswordFormik.values.otp}
+                    onChange={resetPasswordFormik.handleChange}
+                    onBlur={resetPasswordFormik.handleBlur}
+                    className={resetPasswordFormik.touched.otp && resetPasswordFormik.errors.otp ? 'is-invalid' : ''}
+                  />
+                  {resetPasswordFormik.touched.otp && resetPasswordFormik.errors.otp && (
+                    <div className="text-danger">{resetPasswordFormik.errors.otp}</div>
+                  )}
+                </div>
+                <div className="mb-2 text-center">
+                  <span>Thời gian còn lại: {countdown} giây</span>
+                </div>
+                <div className="text-center">
+                  <button type="submit" disabled={countdown === 0}>
+                    Xác nhận OTP
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
 
-    </>
+
+    {/* Form đặt lại mật khẩu */}
+     {/* Modal for Reset Password */}
+      {showNewPasswordForm && (
+        <div className="modal" style={{ display: 'block' }}>
+          <div className="modal-content">
+            <span className="close" onClick={() => setShowNewPasswordForm(false)}>&times;</span>
+            <h2>Đặt lại mật khẩu</h2>
+            <form onSubmit={resetPasswordFormik.handleSubmit}>
+              <div className="mb-2">
+                <label>Mật khẩu mới</label>
+                <input
+                  type="password"
+                  id="newPassword"
+                  placeholder="Nhập mật khẩu mới..."
+                  value={resetPasswordFormik.values.newPassword}
+                  onChange={resetPasswordFormik.handleChange}
+                  onBlur={resetPasswordFormik.handleBlur}
+                  className={resetPasswordFormik.touched.newPassword && resetPasswordFormik.errors.newPassword ? 'is-invalid' : ''}
+                />
+                {resetPasswordFormik.touched.newPassword && resetPasswordFormik.errors.newPassword && (
+                  <div className="text-danger">{resetPasswordFormik.errors.newPassword}</div>
+                )}
+              </div>
+              <div className="mb-2">
+                <label>Xác nhận mật khẩu mới</label>
+                <input
+                  type="password"
+                  id="confirmPassword"
+                  placeholder="Nhập lại mật khẩu mới..."
+                  value={resetPasswordFormik.values.confirmPassword}
+                  onChange={resetPasswordFormik.handleChange}
+                  onBlur={resetPasswordFormik.handleBlur}
+                  className={resetPasswordFormik.touched.confirmPassword && resetPasswordFormik.errors.confirmPassword ? 'is-invalid' : ''}
+                />
+                {resetPasswordFormik.touched.confirmPassword && resetPasswordFormik.errors.confirmPassword && (
+                  <div className="text-danger">{resetPasswordFormik.errors.confirmPassword}</div>
+                )}
+              </div>
+              <div className="text-center">
+                <button type="submit" disabled={resetPasswordFormik.isSubmitting}>
+                  Đặt lại mật khẩu
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+      </>
   );
 }
