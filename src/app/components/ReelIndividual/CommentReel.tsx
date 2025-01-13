@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from 'axios';
+import io from 'socket.io-client';
 
 interface ReplyComment {
   _id: string;
@@ -57,6 +58,7 @@ const CommentReel: React.FC<CommentReelProps> = ({ onClose, video }) => {
     username: string;
   } | null>(null);
   const [showMoreMenu, setShowMoreMenu] = useState(false);
+  const socketRef = useRef<any>(null);
 
   // Lấy thông tin user từ localStorage
   const currentUser = JSON.parse(localStorage.getItem('user') || '{}');
@@ -79,6 +81,75 @@ const CommentReel: React.FC<CommentReelProps> = ({ onClose, video }) => {
       document.removeEventListener('click', handleClickOutside);
     };
   }, [showMoreMenu]);
+
+  useEffect(() => {
+    // Kết nối socket
+    socketRef.current = io('http://localhost:4000');
+
+    // Join room cho video cụ thể
+    socketRef.current.emit('joinReel', video._id);
+
+    // Lắng nghe comment mới
+    socketRef.current.on('newComment', (newComment: Comment) => {
+      setComments(prevComments => [newComment, ...prevComments]);
+    });
+
+    // Lắng nghe reply mới
+    socketRef.current.on('newReply', (data: { commentId: string, reply: ReplyComment }) => {
+      setComments(prevComments => 
+        prevComments.map(comment => 
+          comment._id === data.commentId 
+            ? { ...comment, repComment: [...comment.repComment, data.reply] }
+            : comment
+        )
+      );
+    });
+
+    // Lắng nghe cập nhật like
+    socketRef.current.on('commentLikeUpdate', (update: {
+      commentId: string;
+      likes: number;
+      isLiked: boolean;
+    }) => {
+      setComments(prevComments => 
+        prevComments.map(comment => 
+          comment._id === update.commentId 
+            ? { ...comment, likes: update.likes, isLiked: update.isLiked }
+            : comment
+        )
+      );
+    });
+
+    // Lắng nghe cập nhật like cho reply
+    socketRef.current.on('replyLikeUpdate', (update: {
+      commentId: string;
+      replyId: string;
+      likes: number;
+      isLiked: boolean;
+    }) => {
+      setComments(prevComments => 
+        prevComments.map(comment => 
+          comment._id === update.commentId 
+            ? {
+                ...comment,
+                repComment: comment.repComment.map(reply =>
+                  reply._id === update.replyId
+                    ? { ...reply, likes: update.likes, isLiked: update.isLiked }
+                    : reply
+                )
+              }
+            : comment
+        )
+      );
+    });
+
+    return () => {
+      if (socketRef.current) {
+        socketRef.current.emit('leaveReel', video._id);
+        socketRef.current.disconnect();
+      }
+    };
+  }, [video._id]);
 
   const fetchComments = async () => {
     try {
@@ -103,9 +174,7 @@ const CommentReel: React.FC<CommentReelProps> = ({ onClose, video }) => {
   };
 
   const handleAddComment = async () => {
-    if (!newComment.trim() || !currentUser._id) {
-      return;
-    }
+    if (!newComment.trim() || !currentUser._id) return;
 
     try {
       setIsLoading(true);
@@ -118,12 +187,10 @@ const CommentReel: React.FC<CommentReelProps> = ({ onClose, video }) => {
           idAccount: currentUser._id
         });
 
-        console.log('Reply response:', response.data);
-        
         if (response.data) {
-          setNewComment(""); // Clear input
-          setReplyingTo(null); // Reset replyingTo state
-          await fetchComments(); // Refresh comments
+          setNewComment("");
+          setReplyingTo(null);
+          // Socket sẽ tự động cập nhật UI
         }
       } else {
         // Add new comment
@@ -136,7 +203,7 @@ const CommentReel: React.FC<CommentReelProps> = ({ onClose, video }) => {
 
         if (response.data) {
           setNewComment("");
-          await fetchComments();
+          // Socket sẽ tự động cập nhật UI
         }
       }
     } catch (error) {
@@ -151,10 +218,11 @@ const CommentReel: React.FC<CommentReelProps> = ({ onClose, video }) => {
     try {
       if (isReply && parentCommentId) {
         await axios.put(`http://localhost:4000/comment/like-reply/${parentCommentId}/${commentId}`);
+        // Socket sẽ tự động cập nhật UI
       } else {
         await axios.put(`http://localhost:4000/comment/like/${commentId}`);
+        // Socket sẽ tự động cập nhật UI
       }
-      fetchComments();
     } catch (error) {
       console.error("Error liking comment:", error);
     }

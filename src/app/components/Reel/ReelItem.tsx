@@ -42,9 +42,14 @@ const ReelItem: React.FC<ReelItemProps> = ({ reel }) => {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          videoRef.current?.play();
+          if (videoRef.current) {
+            videoRef.current.play();
+            markReelAsViewed();
+          }
         } else {
-          videoRef.current?.pause();
+          if (videoRef.current) {
+            videoRef.current.pause();
+          }
         }
       });
     }, options);
@@ -59,6 +64,22 @@ const ReelItem: React.FC<ReelItemProps> = ({ reel }) => {
       }
     };
   }, []);
+
+  const markReelAsViewed = async () => {
+    if (!currentUser._id) return;
+
+    try {
+      await fetch(`http://localhost:4000/reel/markAsViewed/${reel._id}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ userId: currentUser._id }),
+      });
+    } catch (error) {
+      console.error('Error marking reel as viewed:', error);
+    }
+  };
 
   const toggleComment = () => {
     setShowComment((prev) => !prev);

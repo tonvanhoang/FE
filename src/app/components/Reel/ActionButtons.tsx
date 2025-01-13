@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import ShareReel from "./ShareReel";
+import io from "socket.io-client";
 
 interface ActionButtonsProps {
   onCommentClick: () => void;
@@ -21,8 +22,33 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({
   const [likeCount, setLikeCount] = useState(initialLikeCount);
   const [showShareModal, setShowShareModal] = useState(false);
   const [showReportModal, setShowReportModal] = useState(false);
+  const socketRef = useRef<any>(null);
 
   const currentUser = JSON.parse(localStorage.getItem("user") || "{}");
+
+  useEffect(() => {
+    // Kết nối socket
+    socketRef.current = io('http://localhost:4000');
+
+    // Lắng nghe sự kiện cập nhật like
+    socketRef.current.on('reelLikeUpdate', (update: {
+      reelId: string;
+      isLiked: boolean;
+      totalLikes: number;
+      userId: string;
+    }) => {
+      if (update.reelId === reelId) {
+        setIsLiked(update.userId === currentUser._id ? update.isLiked : isLiked);
+        setLikeCount(update.totalLikes);
+      }
+    });
+
+    return () => {
+      if (socketRef.current) {
+        socketRef.current.disconnect();
+      }
+    };
+  }, [reelId, currentUser._id]);
 
   useEffect(() => {
     setIsLiked(initialLikeStatus);
@@ -42,20 +68,14 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({
       });
 
       if (response.data) {
-        setIsLiked(response.data.isLiked);
-        setLikeCount(response.data.totalLikes);
+        // Socket sẽ tự động cập nhật UI thông qua event listener
+        // nên không cần set state ở đây nữa
 
-        // Add notification when liking
-        const reelResponse = await axios.get(
-          `http://localhost:4000/reel/reelById/${reelId}`
-        );
-        const reelData = reelResponse.data;
-
-        // Only send notification if the reel owner is different from current user
-        if (reelData.idAccount._id !== currentUser._id) {
+        // Chỉ gửi notification khi like (không gửi khi unlike)
+        if (response.data.isLiked && ownerId !== currentUser._id) {
           const newNotification = {
             owner: currentUser._id,
-            idAccount: reelData.idAccount._id,
+            idAccount: ownerId,
             idReel: reelId,
             content: "đã yêu thích video của bạn ❤️",
           };

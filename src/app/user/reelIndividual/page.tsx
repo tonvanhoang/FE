@@ -4,6 +4,7 @@ import ReelGrid from "../../components/ReelIndividual/ReelGrid";
 import CommentReel from "../../components/ReelIndividual/CommentReel";
 // import "./reel.css";
 import "./reel1.css";
+import axios from "axios";
 
 interface Video {
   _id: string; // Unique identifier for the video
@@ -22,24 +23,16 @@ export default function ReelIndividual({ params }: { params: { id: string } }) {
   useEffect(() => {
     const fetchVideos = async () => {
       try {
-        // Fetch videos của user có ID từ params thay vì từ localStorage
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/reel/reelsByAccount/${params.id}`
-        );
-
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-
-        const data = await response.json();
-        setVideos(data);
+        // Lấy reels theo idAccount từ params.id
+        const response = await axios.get(`http://localhost:4000/reel/reelsByAccount/${params.id}`);
+        setVideos(response.data);
       } catch (error) {
-        console.error("Error fetching videos:", error);
+        console.error('Error fetching videos:', error);
       }
     };
 
     fetchVideos();
-  }, [params.id]); // Dependency là params.id
+  }, [params.id]);
 
   const handleReelClick = (video: Video) => {
     setSelectedVideo(video);
@@ -52,7 +45,7 @@ export default function ReelIndividual({ params }: { params: { id: string } }) {
   };
 
   return (
-    <div>
+    <>
       <ReelGrid videos={videos} onReelClick={handleReelClick} />{" "}
       {/* Pass videos to ReelGrid */}
       {showCommentReel && selectedVideo && (
@@ -61,6 +54,6 @@ export default function ReelIndividual({ params }: { params: { id: string } }) {
           video={selectedVideo}
         />
       )}
-    </div>
+    </>
   );
 }
