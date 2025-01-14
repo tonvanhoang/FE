@@ -1,16 +1,19 @@
-#loginPage{
+#loginPage {
     width: 50%;
     margin: 35px auto;
 }
-#loginPage .container_con{
+
+#loginPage .container_con {
     justify-content: center;
 }
+
 /* left */
-#loginPage .container_con .container_left{
+#loginPage .container_con .container_left {
     margin-right: 15px;
     width: 50%;
 }
-#loginPage .container_con .container_left h2{
+
+#loginPage .container_con .container_left h2 {
     font-family: "Playwrite ES Deco", cursive;
     font-optical-sizing: auto;
     font-weight: 600;
@@ -19,15 +22,17 @@
     text-align: center;
 }
 
-#loginPage .container_con .container_left .img{
+#loginPage .container_con .container_left .img {
     width: 100%;
     height: 630px;
     position: relative;
 }
-#loginPage .container_con .container_left .img img{
+
+#loginPage .container_con .container_left .img img {
     width: 100%;
     height: 100%;
 }
+
 #loginPage .container_con .container_left .img .con {
     position: absolute;
     top: 12px;
@@ -36,64 +41,77 @@
     overflow: hidden;
     width: 100%;
 }
+
 #loginPage .container_con .container_left .img .con .carousel .carousel-inner div {
     width: 92%;
     height: 607px;
     border-radius: 40px;
 }
+
 #loginPage .container_con .container_left .img .con .carousel .carousel-inner div img {
     width: 100%;
     height: 100%;
     border-radius: 40px;
 }
+
 /* right */
-#loginPage .container_con .container_right{
+#loginPage .container_con .container_right {
     width: 50%;
     margin-left: 15px;
 }
-#loginPage .container_con .container_right .item-1{
+
+#loginPage .container_con .container_right .item-1 {
     width: 90%;
     border: 1px solid #d2d2d2;
 }
-#loginPage .container_con .container_right .item-1 h2{
+
+#loginPage .container_con .container_right .item-1 h2 {
     font-family: "Arbutus", serif;
     font-weight: 400;
     font-style: normal;
     font-size: 48px;
 }
-#loginPage .container_con .container_right .item-1 div{
+
+#loginPage .container_con .container_right .item-1 div {
     width: 90%;
 }
-#loginPage .container_con .container_right .item-1 div label{
+
+#loginPage .container_con .container_right .item-1 div label {
     display: block;
     margin-bottom: 5px;
     font-weight: 500;
     font-size: 16px;
 }
-#loginPage .container_con .container_right .item-1 div input{
+
+#loginPage .container_con .container_right .item-1 div input {
     width: 100%;
     border: 1px solid #d2d2d2;
     padding: 8px 5px;
     font-size: 14px;
 }
-#loginPage .container_con .container_right .item-1 div span{
+
+#loginPage .container_con .container_right .item-1 div span {
     font-size: 14px;
 }
-#loginPage .container_con .container_right .item-1 .quenmatkhau{
+
+#loginPage .container_con .container_right .item-1 .quenmatkhau {
     width: 90%;
     display: flex;
     justify-content: flex-end;
 }
-#loginPage .container_con .container_right .item-1 .quenmatkhau a{
+
+#loginPage .container_con .container_right .item-1 .quenmatkhau a {
     color: black;
     font-size: 14px;
     font-weight: 600;
 }
+
 /* loggin */
-#loginPage .container_con .container_right .item-1 .btnLogin{
+#loginPage .container_con .container_right .item-1 .btnLogin {
     width: 100%;
 }
-#loginPage .container_con .container_right .item-1 .btnLogin button{
+
+#loginPage .container_con .container_right .item-1 .btnLogin button {
     width: 130px;
     padding: 0px;
     padding: 7px 5px;
@@ -104,91 +122,113 @@
     transition: all 0.5s;
     margin-bottom: 30px;
 }
-#loginPage .container_con .container_right .item-1 .btnLogin button:hover{
+
+#loginPage .container_con .container_right .item-1 .btnLogin button:hover {
     background-color: black;
 }
-#loginPage .container_con .container_right .item-1 .btnLogin button a{
+
+#loginPage .container_con .container_right .item-1 .btnLogin button a {
     color: white;
-    font-weight:500;
+    font-weight: 500;
 }
-#loginPage .container_con .container_right .item-2{
+
+#loginPage .container_con .container_right .item-2 {
     color: gray;
-    width:90%;
+    width: 90%;
     line-height: 1px;
     display: flex;
     justify-content: center;
-    margin:auto;
+    margin: auto;
     align-content: center;
     height: 30px;
 }
-#loginPage .container_con .container_right .item-2 .col-4{
+
+#loginPage .container_con .container_right .item-2 .col-4 {
     width: 100px;
     height: 1px;
     background-color: gray;
 }
-#loginPage .container_con .container_right .item-2 .col-1{
+
+#loginPage .container_con .container_right .item-2 .col-1 {
     width: 40px;
 }
-#loginPage .container_con .container_right .item-3,#loginPage .container_con .container_right .item-4,#loginPage .container_con .container_right .item-5{
+
+#loginPage .container_con .container_right .item-3,
+#loginPage .container_con .container_right .item-4,
+#loginPage .container_con .container_right .item-5 {
     width: 90%;
     margin: auto;
     border: 1px solid #d2d2d2;
     text-align: center;
     font-weight: 400;
 }
-#loginPage .container_con .container_right .item-3 button,#loginPage .container_con .container_right .item-4 button,#loginPage .container_con .container_right .item-5 button{
+
+#loginPage .container_con .container_right .item-3 button,
+#loginPage .container_con .container_right .item-4 button,
+#loginPage .container_con .container_right .item-5 button {
     background-color: white;
     border: none;
     width: 100%;
     padding: 10px 0px;
 }
+
 /* item3 */
-#loginPage .container_con .container_right .item-3 button a{
+#loginPage .container_con .container_right .item-3 button a {
     color: #0095F6;
     font-weight: 500;
     transition: all 0.7s;
 }
-#loginPage .container_con .container_right .item-3 button a:hover{
+
+#loginPage .container_con .container_right .item-3 button a:hover {
     color: #0033FF;
 }
+
 /* item4 */
-#loginPage .container_con .container_right .item-4 button{
+#loginPage .container_con .container_right .item-4 button {
     display: flex;
     justify-content: center;
 }
-#loginPage .container_con .container_right .item-4 button .img{
+
+#loginPage .container_con .container_right .item-4 button .img {
     width: 30px;
     height: 30px;
 }
-#loginPage .container_con .container_right .item-4 button .img img{
+
+#loginPage .container_con .container_right .item-4 button .img img {
     width: 100%;
-    height:100%;
+    height: 100%;
 }
-#loginPage .container_con .container_right .item-4 button a{
+
+#loginPage .container_con .container_right .item-4 button a {
     color: black;
     text-decoration: none;
     line-height: 30px;
     margin-left: 3px;
 }
+
 /* item5 */
-#loginPage .container_con .container_right .item-5 button{
+#loginPage .container_con .container_right .item-5 button {
     display: flex;
     justify-content: center;
 }
-#loginPage .container_con .container_right .item-5 button .img{
+
+#loginPage .container_con .container_right .item-5 button .img {
     width: 30px;
     height: 30px;
 }
-#loginPage .container_con .container_right .item-5 button .img img{
+
+#loginPage .container_con .container_right .item-5 button .img img {
     width: 100%;
-    height:100%;
+    height: 100%;
 }
-#loginPage .container_con .container_right .item-5 button a{
+
+#loginPage .container_con .container_right .item-5 button a {
     color: black;
     text-decoration: none;
     line-height: 30px;
     margin-left: 6px;
 }
+
 /* giao diện máy tính */
 /* @media (min-width: 1024px) {
     .container {
@@ -198,39 +238,47 @@
 
 /* máy tính bảng */
 @media (min-width: 768px) and (max-width: 1023px) {
-        /* chung */
-            #loginPage{
-            width: 100%;
-            margin: 150px auto;
-        }
-        /* left */
-        #loginPage .container_con .container_left{
-            display: none;
-        }
-        /* right */
-        #loginPage .container_con .container_right{
-            width: 100%;
-            margin-left: 0px;
-    
-        }
-}
-/* điện thoại */
-@media (max-width: 767px) {
+
     /* chung */
-    #loginPage{
-        width: 96%;
+    #loginPage {
+        width: 100%;
+        margin: 150px auto;
     }
+
     /* left */
-    #loginPage .container_con .container_left{
+    #loginPage .container_con .container_left {
         display: none;
     }
+
     /* right */
-    #loginPage .container_con .container_right{
+    #loginPage .container_con .container_right {
         width: 100%;
         margin-left: 0px;
 
     }
 }
+
+/* điện thoại */
+@media (max-width: 767px) {
+
+    /* chung */
+    #loginPage {
+        width: 96%;
+    }
+
+    /* left */
+    #loginPage .container_con .container_left {
+        display: none;
+    }
+
+    /* right */
+    #loginPage .container_con .container_right {
+        width: 100%;
+        margin-left: 0px;
+
+    }
+}
+
 /* Nút "Trợ Giúp" nằm bên trái "Quên mật khẩu" */
 #loginPage .container_con .container_right .item-1 .quenmatkhau {
     width: 90%;
@@ -267,34 +315,43 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    animation: fadeIn 0.3s ease-in-out;
 }
 
 .modal-content {
-    background-color: white;
+    background-color: #ffffff;
     padding: 30px;
     width: 100%;
     max-width: 500px;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
     position: relative;
+    animation: scaleUp 0.3s ease-in-out;
+    transform: translate(-50%, -50%);
+    top: 45%;
+    left: 50%;
 }
 
 .modal-content h2 {
     text-align: center;
     margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
 }
 
 .modal .close {
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: 15px;
+    right: 15px;
     font-size: 24px;
     cursor: pointer;
-    color: #333;
+    color: #555;
+    transition: color 0.3s ease-in-out, transform 0.2s ease-in-out;
 }
 
 .modal .close:hover {
     color: #e3342f;
+    transform: rotate(90deg);
 }
 
 .modal form input,
@@ -302,19 +359,42 @@
 .modal form button {
     margin-bottom: 15px;
     width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
-.modal form input[type="file"] {
-    padding: 8px;
+.modal form input:focus,
+.modal form textarea:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.25);
 }
 
 .modal form button[type="submit"] {
     background-color: #535353;
     color: white;
     padding: 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
 }
 
 .modal form button[type="submit"]:hover {
-    background-color: #7d7d7d;
+    background-color: #007bff;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 15px rgba(0, 123, 255, 0.2);
 }
 
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}

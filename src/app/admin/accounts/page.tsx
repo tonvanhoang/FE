@@ -35,6 +35,7 @@ const AccountManagement = () => {
     const [modalImage, setModalImage] = useState<string | null>(null); 
     const [isEditRoleModalOpen, setIsEditRoleModalOpen] = useState<boolean>(false); 
     const [editingAccount, setEditingAccount] = useState<Account | null>(null); 
+    const [showUnlockRequests, setShowUnlockRequests] = useState<boolean>(false); // State to toggle unlock requests list
 
     useEffect(() => {
         fetch("http://localhost:4000/account/allAccount")
@@ -168,7 +169,7 @@ const AccountManagement = () => {
         if (editingAccount) {
             try {
                 const response = await fetch(
-                    `http://localhost:4000/account/Role/${editingAccount._id}`,
+                    `http://localhost:4000/account/editRole/${editingAccount._id}`,
                     {
                         method: "PUT",
                         headers: { "Content-Type": "application/json" },
@@ -194,20 +195,26 @@ const AccountManagement = () => {
         }
     };
     
+    const toggleUnlockRequests = async () => {
+        if (!showUnlockRequests) {
+            await fetchUnlockRequests();
+        }
+        setShowUnlockRequests(!showUnlockRequests);
+    };
 
     return (
         <>
             <Nav />
             <div className="containerPost">
                 <div className="conPost">
-                    {/* Nút lấy danh sách yêu cầu mở khóa */}
+                    {/* Nút đóng mở danh sách yêu cầu mở khóa và lấy danh sách yêu cầu mở khóa */}
                     <button
-                        onClick={fetchUnlockRequests}
+                        onClick={toggleUnlockRequests}
                         style={{
                             marginBottom: "20px",
                             width: "300px",
                             padding: "10px",
-                            backgroundColor: "#454545",
+                            backgroundColor: "#0096fa",
                             color: "#fff",
                             border: "none",
                             borderRadius: "5px",
@@ -215,7 +222,7 @@ const AccountManagement = () => {
                             position: "relative",
                         }}
                     >
-                        Các yêu cầu trợ giúp
+                        {showUnlockRequests ? "Đóng danh sách yêu cầu trợ giúp" : "Mở danh sách yêu cầu trợ giúp"}
                         {/* Bong bóng chat hiển thị số yêu cầu */}
                         {pendingRequestsCount > 0 && (
                             <div
@@ -323,10 +330,10 @@ const AccountManagement = () => {
                     </table>
 
                     {/* Danh sách yêu cầu mở khóa */}
-                    {unlockRequests.length > 0 && (
-                        <div>
+                    {showUnlockRequests && unlockRequests.length > 0 && (
+                        <div className="unlock-requests-container">
                             <h3>Danh sách yêu cầu mở khóa</h3>
-                            <table>
+                            <table className="unlock-requests-table">
                                 <thead>
                                     <tr>
                                         <th>Email</th>
@@ -424,5 +431,5 @@ const AccountManagement = () => {
     );
 };
 
-export default AccountManagement; 
+export default AccountManagement;
 

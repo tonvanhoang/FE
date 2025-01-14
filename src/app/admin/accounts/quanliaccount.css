@@ -906,3 +906,64 @@ button+span {
     color: #fff;
     cursor: pointer;
 }
+
+.unlock-requests-container {
+    margin-top: 20px;
+}
+
+.unlock-requests-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.unlock-requests-table th,
+.unlock-requests-table td {
+    padding: 12px 15px;
+    text-align: left;
+}
+
+.unlock-requests-table th {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+}
+
+.unlock-requests-table td {
+    vertical-align: middle;
+}
+
+.unlock-requests-table td img {
+    max-width: 100px;
+    height: auto;
+    border-radius: 5px;
+    display: block;
+    margin: 0 auto;
+}
+
+.unlock-requests-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.unlock-requests-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+.unlock-requests-table th:nth-child(1),
+.unlock-requests-table td:nth-child(1) {
+    width: 25%;
+}
+
+.unlock-requests-table th:nth-child(2),
+.unlock-requests-table td:nth-child(2) {
+    width: 30%;
+}
+
+.unlock-requests-table th:nth-child(3),
+.unlock-requests-table td:nth-child(3) {
+    width: 20%;
+}
+
+.unlock-requests-table th:nth-child(4),
+.unlock-requests-table td:nth-child(4) {
+    width: 25%;
+}
