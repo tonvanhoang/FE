@@ -635,3 +635,22 @@
   border-radius: 50%;
   object-fit: cover;
 }
+
+/* Thêm style cho ShowAccount trong comment section */
+.comment-header ShowAccount,
+.avatarUser ShowAccount,
+.reply ShowAccount {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  overflow: hidden;
+  display: block;
+}
+
+.comment-header ShowAccount img,
+.avatarUser ShowAccount img,
+.reply ShowAccount img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
