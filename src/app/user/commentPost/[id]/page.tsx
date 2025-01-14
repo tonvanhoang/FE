@@ -1,5 +1,5 @@
 'use client'
-import React, { FormEvent, useEffect, useState } from "react";
+import React, { FormEvent, useEffect, useRef, useState } from "react";
 import ShowAccount from "../../componentAccount/image";
 import ShowName from "../../componentAccount/name";
 import Link from "next/link";
@@ -35,7 +35,7 @@ interface Reply {
 
 export default function CommentPost({ params }: { params: { id: string } }) {
   const [showLinkPost, setShowLinkPost] = useState<boolean>(false);
-  const [links, setLink] = useState<any>(null);
+  const [links, setLink] = useState<string | null>(null);
   const [user, setUser] = useState<User | null>(null);
   const [comments, setComments] = useState<Comment[]>([]);
   const [comment, setComment] = useState('');
@@ -43,7 +43,10 @@ export default function CommentPost({ params }: { params: { id: string } }) {
   const [accounts, setAccounts] = useState<{ [key: string]: User }>({});
   const [accountRepComment, setAccountRepComment] = useState<{ [key: string]: User }>({});
   const [text, setText] = useState<{ [key: string]: string }>({});
+  const [replyTo, setReplyTo] = useState<string | null>(null);
+  const [showReplies, setShowReplies] = useState<{ [key: string]: boolean }>({});
   const socket = io("http://localhost:4000"); // Set up Socket.IO client connection
+  const commentInputRef = useRef<HTMLInputElement>(null);
 
   // Fetch comments
   const fetchComment = async () => {
@@ -92,45 +95,72 @@ export default function CommentPost({ params }: { params: { id: string } }) {
     }
   }, []);
 
-  // Add a new comment and emit it to the server via Socket.IO
-  const addComment = async (e: React.FormEvent, id: string) => {
+  // Add a new comment or reply and emit it to the server via Socket.IO
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const newComment = {
-      comment: comment,
-      idPost: params.id,
-      idAccount: user?._id
-    };
-    const res = await fetch("http://localhost:4000/comment/addpost", {
-      method: "POST",
-      headers: {
-        "content-Type": "application/json"
-      },
-      body: JSON.stringify(newComment)
-    });
-    if (res.ok) {
-      const createdComment = await res.json();
-      socket.emit("newComment", createdComment); // Emit new comment event
-      setComment(''); // Clear the comment input
-      const resPostDetail = await fetch(`http://localhost:4000/post/postByID/${id}`);
-      const dataPost = await resPostDetail.json();
-      // Nếu người dùng không phải là chủ sở hữu bài viết, gửi thông báo yêu thích
-      if (user?._id !== dataPost.idAccount) {
-        const newNoTi = {
-          idAccount: dataPost.idAccount,
-          idPost: dataPost._id,
-          owner: user?._id,
-          content: 'Đã yêu bình luận bài viết của bạn❤️',
-          type: "post"
-        };
-        await fetch(`http://localhost:4000/notification/addPost`, {
-          headers: {
-            'content-type': 'application/json',
-          },
-          method: 'POST',
-          body: JSON.stringify(newNoTi),
-        });
+    if (replyTo) {
+      const newRep = {
+        idAccount: user?._id,
+        text: comment, // Use the same input for reply text
+        commentId: replyTo // Add commentId to the newRep object
+      };
+      const res = await fetch(`http://localhost:4000/comment/repPost/${replyTo}`, {
+        headers: {
+          "content-type": "application/json",
+        },
+        method: "POST",
+        body: JSON.stringify(newRep),
+      });
+      if (res.ok) {
+        const createdReply = await res.json();
+        socket.emit("newReply", createdReply);  // Emit reply event with commentId
+        setComments(prevComments =>
+          prevComments.map(comment =>
+            comment._id === createdReply.commentId ? { ...comment, repComment: [createdReply, ...comment.repComment] } : comment
+          )
+        );
+        ShowAccountByRepComment(createdReply.idAccount); // Fetch account info for the new reply
+        setComment(''); // Clear the comment input
+        setReplyTo(null); // Reset replyTo state
       }
-      toast.success('Đã yêu thích bài viết.');
+    } else {
+      const newComment = {
+        comment: comment,
+        idPost: params.id,
+        idAccount: user?._id
+      };
+      const res = await fetch("http://localhost:4000/comment/addpost", {
+        method: "POST",
+        headers: {
+          "content-Type": "application/json"
+        },
+        body: JSON.stringify(newComment)
+      });
+      if (res.ok) {
+        const createdComment = await res.json();
+        socket.emit("newComment", createdComment); // Emit new comment event
+        setComment(''); // Clear the comment input
+        const resPostDetail = await fetch(`http://localhost:4000/post/postByID/${params.id}`);
+        const dataPost = await resPostDetail.json();
+        // Nếu người dùng không phải là chủ sở hữu bài viết, gửi thông báo yêu thích
+        if (user?._id !== dataPost.idAccount) {
+          const newNoTi = {
+            idAccount: dataPost.idAccount,
+            idPost: dataPost._id,
+            owner: user?._id,
+            content: 'Đã yêu bình luận bài viết của bạn❤️',
+            type: "post"
+          };
+          await fetch(`http://localhost:4000/notification/addPost`, {
+            headers: {
+              'content-type': 'application/json',
+            },
+            method: 'POST',
+            body: JSON.stringify(newNoTi),
+          });
+        }
+        toast.success('Đã yêu thích bài viết.');
+      }
     }
   };
 
@@ -209,7 +239,6 @@ export default function CommentPost({ params }: { params: { id: string } }) {
       socket.off("newReport");
     };
   }, []);
-
   // Fetch post details
   useEffect(() => {
     const fetchPost = async () => {
@@ -219,38 +248,6 @@ export default function CommentPost({ params }: { params: { id: string } }) {
     };
     fetchPost();
   }, [params.id]);
-
-  // Reply to a comment and emit the reply to the server via Socket.IO
-  const btnRepComment = async (e: React.FormEvent, id: string) => {
-    e.preventDefault();
-    const newRep = {
-      idAccount: user?._id,
-      text: text[id], // Reply text
-      commentId: id // Add commentId to the newRep object
-    };
-    const res = await fetch(`http://localhost:4000/comment/repPost/${id}`, {
-      headers: {
-        "content-type": "application/json",
-      },
-      method: "POST",
-      body: JSON.stringify(newRep),
-    });
-    if (res.ok) {
-      const createdReply = await res.json();
-      socket.emit("newReply", createdReply);  // Emit reply event with commentId
-      setComments(prevComments =>
-        prevComments.map(comment =>
-          comment._id === createdReply.commentId ? { ...comment, repComment: [createdReply, ...comment.repComment] } : comment
-        )
-      );
-      ShowAccountByRepComment(createdReply.idAccount); // Fetch account info for the new reply
-      setText((prevText) => ({ ...prevText, [id]: '' }));
-      const show = document.getElementById(`InputComment-${id}`) as HTMLElement;
-      if (show) {
-        show.style.display = 'none';
-      }
-    }
-  };
 
   // Listen for new replies (real-time updates)
   useEffect(() => {
@@ -270,10 +267,15 @@ export default function CommentPost({ params }: { params: { id: string } }) {
 
   // Show the input for reply
   function showInputepComment(id: string) {
-    const show = (document.getElementById(`InputComment-${id}`) as HTMLElement);
-    if (show) {
-      show.style.display = 'block';
+    setReplyTo(id);
+    if (commentInputRef.current) {
+      commentInputRef.current.focus();
     }
+  }
+
+  // Toggle the visibility of replies for a comment
+  function toggleReplies(id: string) {
+    setShowReplies(prev => ({ ...prev, [id]: !prev[id] }));
   }
 
   // Show the link to post
@@ -284,14 +286,16 @@ export default function CommentPost({ params }: { params: { id: string } }) {
 
   // Copy link to clipboard
   const copyToClipboard = () => {
-    const textToCopy = `http://localhost:3000/user/detailPost/${links}`;
-    navigator.clipboard.writeText(textToCopy)
-      .then(() => {
-        alert("Đã sao chép vào clipboard!");
-      })
-      .catch(err => {
-        console.error("Không thể sao chép: ", err);
-      });
+    if (links) {
+      const textToCopy = `http://localhost:3000/user/detailPost/${links}`;
+      navigator.clipboard.writeText(textToCopy)
+        .then(() => {
+          alert("Đã sao chép vào clipboard!");
+        })
+        .catch(err => {
+          console.error("Không thể sao chép: ", err);
+        });
+    }
   };
 
   const showOptionPost = () => {
@@ -369,30 +373,26 @@ export default function CommentPost({ params }: { params: { id: string } }) {
                   }
                 </div>
                 <div className="content">
-                  {
-                    accounts[cmt.idAccount] && (
-                      <Link href={`/user/profilePage/${cmt.idAccount}`}>
-                        <span>{accounts[cmt.idAccount].firstName} {accounts[cmt.idAccount].lastName}</span>
-                      </Link>
-                    )
-                  }
-                  <label>{cmt.comment}</label>
+                  <div className="d-flex">
+                    {
+                      accounts[cmt.idAccount] && (
+                        <Link href={`/user/profilePage/${cmt.idAccount}`}>
+                          <span>{accounts[cmt.idAccount].firstName} {accounts[cmt.idAccount].lastName}</span>
+                        </Link>
+                      )
+                    }
+                    <div className="comment">
+                      <label>{cmt.comment}</label>
+                    </div>
+                  </div>
+                  <div className="d-flex justify-content-between">
+                    <span className="dateComment">{cmt.dateComment}</span>
+                    <a href="#" onClick={() => toggleReplies(cmt._id)} className="d-block" style={{ marginLeft: '10px', color: 'gray', fontSize: '14px', fontWeight: '500' }}>Xem phản hồi</a>
+                    <a href="#" onClick={() => showInputepComment(cmt._id)} className="d-block" style={{ marginLeft: '10px', color: 'gray', fontSize: '14px', fontWeight: '500' }}>Trả lời</a>
+                  </div>
                 </div>
               </div>
-              <div className="repComment">
-                <span>{cmt.dateComment}</span>
-                <a href="#" onClick={() => showInputepComment(cmt._id)}>Trả lời</a>
-                <form action="" id={`InputComment-${cmt._id}`} style={{ display: 'none' }}>
-                  <input
-                    type="text"
-                    id="InputRep"
-                    value={text[cmt._id] || ''} // Bind input value to text state
-                    onChange={(e) => setText({ ...text, [cmt._id]: e.target.value })} // Update text state
-                  />
-                  <button type="submit" onClick={(e) => btnRepComment(e, cmt._id)}>Gửi</button>
-                </form>
-              </div>
-              {cmt.repComment && (
+              {showReplies[cmt._id] && cmt.repComment && (
                 <div className="repCommentSection mx-5">
                   {cmt.repComment.map((rep: Reply) => (
                     <div className="avatarUser my-2" key={rep._id}>
@@ -407,9 +407,10 @@ export default function CommentPost({ params }: { params: { id: string } }) {
                         {accountRepComment[rep.idAccount] && (
                           <Link href={`/user/profilePage/${rep.idAccount}`}>
                             <span>{accountRepComment[rep.idAccount].firstName} {accountRepComment[rep.idAccount].lastName}</span>
+                            <label htmlFor="" style={{ marginLeft: '5px' }}>{rep.text} </label>
                           </Link>
                         )}
-                        <label>{rep.text} {rep.date}</label>
+                        <i>{rep.date}</i>
                       </div>
                     </div>
                   ))}
@@ -431,21 +432,22 @@ export default function CommentPost({ params }: { params: { id: string } }) {
             </div>
             <div className="inPutThemBL">
               <div className="d-flex">
-                <input onChange={(e) => setComment(e.target.value)}
+                <input
+                  ref={commentInputRef}
+                  onChange={(e) => setComment(e.target.value)}
                   type="text"
                   value={comment}
                   className="form-control"
-                  placeholder="Thêm bình luận..."
+                  placeholder={replyTo ? "Trả lời bình luận..." : "Thêm bình luận..."}
                 />
                 <i className="fa-solid fa-face-smile"></i>
-                <button type="submit" onClick={(e) => addComment(e, post._id)}><a href="#">Đăng</a></button>
+                <button type="submit" onClick={handleSubmit}><a href="#">Đăng</a></button>
               </div>
             </div>
             <FormPrivate params={{ id: post._id }} />
           </>
         )}
       </div>
-
       {showLinkPost && (
         <div className="linkPost">
           <div className="d-flex align-self-center">

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import '../search/search.css';
 import Link from 'next/link';
+import ShowAccount from '../componentAccount/image';
 interface Account {
   _id:string;
   firstName: string;
@@ -64,7 +65,10 @@ export default function Search() {
               {filteredAccounts.length > 0 ? (
                 filteredAccounts.map((account, index) => (
                   <div key={index} className="lichsu">
-                    <Link className='' href={`/user/profilePage/${account._id}`}>{account.firstName} {account.lastName}</Link>
+                    <Link href={`/user/profilePage/${account._id}`}>
+                    <ShowAccount params={{ id: account._id }} />
+                    <a href="">{account.lastName} {account.firstName}</a>
+                    </Link>
                   </div>
                 ))
               ) : (

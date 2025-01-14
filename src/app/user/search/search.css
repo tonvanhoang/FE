@@ -61,11 +61,16 @@
 .ulnavcon .containercon .ganday .lichsu {
     margin-bottom: 5px;
     display: flex;
-    justify-content: space-between;
+  }
+  .ulnavcon .containercon .ganday .lichsu img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
   }
 .ulnavcon .containercon .ganday .lichsu a {
     font-size: 16px;
-    font-size: 500;
+    font-weight: 500;
+    margin-left: 5px;
   }
 .ulnavcon .containercon .ganday .lichsu i {
     font-size: 16px;

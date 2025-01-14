@@ -70,16 +70,14 @@ export default function Notification() {
       alert('Gửi yêu cầu thành công!')
     }
   }
-
   return (
     <>
       <Nav />
       <div className="containerNoti">
         <div className="postLeft">
-          <div className="item" style={{ marginBottom: "100px" }}>
+          <div className="item">
             <h3>Thông báo</h3>
             <div className="homnay">
-              {/* <h6>Hôm nay</h6> */}
               {
                 noti.map((no: any) => (
                   <div className="gachaffter" key={no._id}>
@@ -87,7 +85,11 @@ export default function Notification() {
                       <div className="img">
                         <ShowAccount params={{ id: no.owner }} />
                       </div>
-                      <div className="content">
+                     <div>
+                     {
+                        no.type === 'report' && (
+                          <>
+                          <div className="content">
                         <a className="text-decoration-none text-black">
                           <span>
                             <ShowName params={{ id: no.owner }} />
@@ -96,22 +98,47 @@ export default function Notification() {
                           </span>
                         </a>
                       </div>
-                      {
-                        no.type === 'report' && (
                           <div>
                             <button className="btn-yeucau" onClick={() => editRequest(no.idReport)}>Yêu cầu</button>
                           </div>
+                          </>
                         )
                       }
                       {
                         no.type === 'post' && (
                           <div>
-                            <Link href={`/user/detailPost/${no.idPost}`}>
-                              <button className="btn-yeucau">Xem bài viết</button>
+                            <Link className="text-decoration-none" href={`/user/detailPost/${no.idPost}`}>
+                            <div className="content">
+                              <a className="text-decoration-none text-black">
+                                <span>
+                                  <ShowName params={{ id: no.owner }} />
+                                  {no.content}
+                                  <i className="mx-1 d-block">{no.dateNotification}</i>
+                                </span>
+                              </a>
+                            </div>
                             </Link>
                           </div>
                         )
                       }
+                      {
+                        no.type === 'follow' && (
+                          <div>
+                            <Link className="text-decoration-none" href={`/user/profilePage/${no.owner}`}>
+                            <div className="content">
+                            <a className="text-decoration-none text-black">
+                              <span>
+                                <ShowName params={{ id: no.owner }} />
+                                {no.content}
+                                <i className="mx-1 d-block">{no.dateNotification}</i>
+                              </span>
+                             </a>
+                            </div>     
+                        </Link>
+                          </div>
+                        )
+                      }
+                     </div>
                     </div>
                   </div>
                 ))
@@ -119,7 +146,6 @@ export default function Notification() {
             </div>
           </div>
         </div>
-        {/* <!-- gợi ý --> */}
         <Suggestion />
       </div>
     </>

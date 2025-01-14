@@ -29,8 +29,8 @@ export default function ShowHeart({ params }: { params: { id: string } }) {
     useEffect(() => {
         const socket = io("http://localhost:4000");
 
-        socket.on('favoriteUpdated', (data: { idPost: string, isLiked: boolean }) => {
-            if (data.idPost === params.id) {
+        socket.on('favoriteUpdated', (data: { idPost: string, isLiked: boolean, idAccount: string }) => {
+            if (data.idPost === params.id && data.idAccount !== user?._id) {
                 setIsLiked(data.isLiked); // Cập nhật trạng thái thích
             }
         });
@@ -135,6 +135,7 @@ export default function ShowHeart({ params }: { params: { id: string } }) {
                         });
                     }
                     toast.success('Đã yêu thích bài viết.'); // Hiển thị thông báo thành công
+                    io().emit('favoriteUpdated', { idPost: id, isLiked: true, idAccount: user._id }); // Emit event to update other clients
                 } else {
                     toast.error('Thêm yêu thích thất bại.'); // Thông báo lỗi
                 }

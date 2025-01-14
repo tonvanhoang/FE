@@ -44,14 +44,18 @@
 }
 .containerNoti .item .thongbaocon {
   display: flex;
+  align-items: center;
+  padding: 10px 10px;
 }
 .containerNoti .item .gachaffter {
-  background-color: aliceblue;
-  padding: 20px 0px;
+  border-radius: 10px;
+  background-color: whitesmoke;
   margin-top: 5px;
+  transition: all 0.5s;
 }
 .containerNoti .item .gachaffter:hover {
   cursor: pointer;
+  background-color: aliceblue;
 }
 .containerNoti .item .img {
   width: 45px;
@@ -65,7 +69,9 @@
 }
 .containerNoti .item .content {
   margin-left: 5px;
-  width: 90%;
+  width: 100%;
+  display: flex;
+  align-items: center;
 }
 .containerNoti .item .content a {
   color: black;
@@ -78,7 +84,10 @@
   font-size: 14px;
   font-weight: 400;
 }
-
+.containerNoti .item .content a span i{
+  font-size: 14px;
+  color: gray;
+}
 /* postRight */
 .containerNoti .postRight {
   width: 34%;

@@ -90,9 +90,11 @@
   }
   .detailPost .childdetailPost .detailLeft .commentdetail .avatarUser {
     display: flex;
+    align-items: center;
   }
   .detailPost .childdetailPost .detailLeft .commentdetail .avatarUser .img {
-    width: 10%;
+    width: 35px;
+    margin-right: 5px;
   }
   .detailPost .childdetailPost .detailLeft .commentdetail .avatarUser img {
     width: 35px;
@@ -100,7 +102,22 @@
     border-radius: 50%;
   }
   .detailPost .childdetailPost .detailLeft .commentdetail .avatarUser .content {
-    width: 90%;
+    margin-right: 5px;
+    margin-left: 10px;
+    line-height: 25px;
+  }
+  .detailPost .childdetailPost .detailLeft .commentdetail .avatarUser .content .comment{
+    font-size: 14px;
+    font-weight: 500;
+    margin-left: 5px;
+  }
+  .detailPost .childdetailPost .detailLeft .commentdetail .avatarUser .content .comment span{
+   margin-left: 5px;
+  }
+  .detailPost .childdetailPost .detailLeft .commentdetail .avatarUser .content .dateComment{
+    color: gray;
+    font-size: 12px;
+    line-height: -2px;
   }
   .detailPost .childdetailPost .detailLeft .commentdetail .avatarUser a {
     text-decoration: none;
@@ -109,29 +126,54 @@
     display: block;
     font-size: 14px;
   }
+  .detailPost .childdetailPost .detailLeft .commentdetail .content i{
+    font-size: 12px;
+    color: gray;
+  }
   .detailPost .childdetailPost .detailLeft .commentdetail .avatarUser label {
     font-weight: 400;
-    width: 90%;
     height: auto;
-    font-size: 14px;
+    font-size: 16px;
   }
   .detailPost .childdetailPost .detailLeft .commentdetail .repComment {
     display: flex;
-    margin-left: 50px;
-    font-size: 14px;
-  }
-  .detailPost .childdetailPost .detailLeft .commentdetail .repComment span {
-    color: gray;
-  }
-  .detailPost .childdetailPost .detailLeft .commentdetail .repComment a {
-    text-decoration: none;
-    color: gray;
-    font-weight: bold;
-    transition: all 0.6s;
+   
     margin-left: 20px;
+    font-size: 14px;
+    gap: 10px; /* Adds spacing between elements */
   }
-  .detailPost .childdetailPost .detailLeft .commentdetail .repComment a:hover {
-    color: #219af7;
+  
+  .detailPost .childdetailPost .detailLeft .commentdetail .repComment input {
+    padding: 8px 12px; /* Add padding for better spacing */
+    border: 1px solid #d2d2d2;
+    border-radius: 20px; /* Rounded corners for a modern look */
+    font-size: 14px;
+    outline: none;
+    transition: all 0.3s ease-in-out; /* Smooth transition */
+  }
+  
+  .detailPost .childdetailPost .detailLeft .commentdetail .repComment input:focus {
+    border-color: #219af7; /* Highlight border on focus */
+    box-shadow: 0 0 5px rgba(33, 154, 247, 0.5); /* Soft glow effect */
+  }
+  
+  .detailPost .childdetailPost .detailLeft .commentdetail .repComment button {
+    background-color: #219af7; /* Primary color */
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+  }
+  
+  .detailPost .childdetailPost .detailLeft .commentdetail .repComment button:hover {
+    background-color: #1a7ac7; /* Darker shade on hover */
+  }
+  #repCommentSection{
+    display: none;
   }
   /* icon */
   .detailPost .childdetailPost .detailLeft .containerIcon {
