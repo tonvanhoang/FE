@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from 'axios';
+import io from 'socket.io-client';
 
 interface ReplyComment {
   _id: string;
@@ -50,8 +51,47 @@ const CommentSection: React.FC<CommentSectionProps> = ({
     ownerId: string;
   } | null>(null);
 
+  const socketRef = useRef<any>(null);
+
   // Lấy thông tin user từ localStorage (giả sử đã lưu sau khi đăng nhập)
   const currentUser = JSON.parse(localStorage.getItem('user') || '{}');
+
+  useEffect(() => {
+    // Connect to socket server
+    socketRef.current = io('http://localhost:4000');
+
+    // Join reel room
+    if (reelId) {
+      socketRef.current.emit('joinReel', reelId);
+    }
+
+    // Listen for new comments
+    socketRef.current.on('newComment', (newComment: Comment) => {
+      setComments(prevComments => [newComment, ...prevComments]);
+    });
+
+    // Listen for like updates
+    socketRef.current.on('commentLikeUpdate', (update: {
+      commentId: string;
+      likes: number;
+      isLiked: boolean;
+    }) => {
+      setComments(prevComments => 
+        prevComments.map(comment => 
+          comment._id === update.commentId 
+            ? { ...comment, likes: update.likes, isLiked: update.isLiked }
+            : comment
+        )
+      );
+    });
+
+    return () => {
+      if (reelId) {
+        socketRef.current.emit('leaveReel', reelId);
+      }
+      socketRef.current.disconnect();
+    };
+  }, [reelId]);
 
   useEffect(() => {
     console.log('ReelId:', reelId);
@@ -77,17 +117,13 @@ const CommentSection: React.FC<CommentSectionProps> = ({
   };
 
   const handleAddComment = async (e: React.KeyboardEvent | React.MouseEvent) => {
-    // Nếu là keypress event và không phải Enter thì return
     if ('key' in e && e.key !== 'Enter') return;
-    
-    // Kiểm tra các điều kiện khác
     if (!newComment.trim() || !currentUser._id || !reelId) return;
 
     try {
       setIsLoading(true);
       setError(null);
       
-      // If creating new comment - Sửa endpoint thành addReel thay vì addpost
       const response = await axios.post('http://localhost:4000/comment/addReel', {
         comment: newComment,
         idReel: reelId,
@@ -95,14 +131,11 @@ const CommentSection: React.FC<CommentSectionProps> = ({
         dateComment: new Date().toISOString()
       });
       
-      console.log('Add comment response:', response.data);
+      // Clear input after successful post
+      setNewComment("");
       
-      // Refresh comments immediately after adding
-      if (response.data) {
-        setNewComment(""); // Clear input
-        await fetchComments(); // Refresh comments
-      }
-
+      // No need to fetch comments again since we'll receive the update via socket
+      
     } catch (error) {
       console.error("Error adding comment:", error);
       setError('Failed to add comment');
@@ -121,6 +154,51 @@ const CommentSection: React.FC<CommentSectionProps> = ({
       fetchComments(); // Refresh comments to get updated likes
     } catch (error) {
       console.error("Error liking comment:", error);
+    }
+  };
+
+  // Thêm socket listener cho reply mới
+  useEffect(() => {
+    if (socketRef.current) {
+      socketRef.current.on('newReply', (data: {
+        commentId: string;
+        reply: ReplyComment;
+      }) => {
+        setComments(prevComments => 
+          prevComments.map(comment => 
+            comment._id === data.commentId
+              ? {
+                  ...comment,
+                  repComment: [...comment.repComment, data.reply]
+                }
+              : comment
+          )
+        );
+      });
+    }
+
+    return () => {
+      if (socketRef.current) {
+        socketRef.current.off('newReply');
+      }
+    };
+  }, []);
+
+  // Sửa lại hàm xử lý reply
+  const handleReply = async (commentId: string) => {
+    if (!newComment.trim() || !currentUser?._id) return;
+
+    try {
+      const response = await axios.post(`http://localhost:4000/comment/reply/${commentId}`, {
+        text: newComment,
+        idAccount: currentUser._id
+      });
+
+      // Clear input và reset replyingTo
+      setNewComment('');
+      setReplyingTo(null);
+    } catch (error) {
+      console.error('Error sending reply:', error);
     }
   };
 
@@ -225,10 +303,25 @@ const CommentSection: React.FC<CommentSectionProps> = ({
             placeholder={replyingTo ? "Add a reply..." : "Add a comment..."}
             value={newComment}
             onChange={(e) => setNewComment(e.target.value)}
-            onKeyDown={handleAddComment}
+            onKeyPress={(e) => {
+              if (e.key === "Enter") {
+                e.preventDefault();
+                if (replyingTo) {
+                  handleReply(replyingTo.commentId);
+                } else {
+                  handleAddComment({} as any);
+                }
+              }
+            }}
           />
           <button
-            onClick={handleAddComment}
+            onClick={() => {
+              if (replyingTo) {
+                handleReply(replyingTo.commentId);
+              } else {
+                handleAddComment({} as any);
+              }
+            }}
             className={newComment.trim() ? "active" : ""}
           >
             Đăng
