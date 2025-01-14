@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from 'axios';
 import io from 'socket.io-client';
+import ShowAccount from "../../user/componentAccount/image";
 
 interface ReplyComment {
   _id: string;
@@ -280,8 +281,11 @@ const CommentReel: React.FC<CommentReelProps> = ({ onClose, video }) => {
         </div>
         <div className="detailLeft">
           <div className="comment-header">
-            <img src="../img/avata.jpg" alt="" className="avatar" />
-            <span className="username">{video.title}</span>
+            <span className="username">
+              {typeof video.idAccount === 'object' 
+                ? `${video.idAccount.firstName} ${video.idAccount.lastName}`
+                : video.idAccount}
+            </span>
             <div className="more-options">
               <button 
                 className="more-btn"
@@ -310,7 +314,7 @@ const CommentReel: React.FC<CommentReelProps> = ({ onClose, video }) => {
             {comments.map((comment) => (
               <div key={comment._id} className="commentdetail">
                 <div className="avatarUser">
-                  <img src={comment.idAccount.avatar || "../img/avata.jpg"} alt="" />
+                  <ShowAccount params={{ id: comment.idAccount._id }} />
                   <div className="content">
                     <a href="#">{`${comment.idAccount.firstName} ${comment.idAccount.lastName}`}</a>
                     <label>{comment.comment}</label>
@@ -339,15 +343,18 @@ const CommentReel: React.FC<CommentReelProps> = ({ onClose, video }) => {
                 {comment.repComment.length > 0 && (
                   <div className="replies-container">
                     {comment.repComment.map((reply) => {
-                      const replyUsername = typeof reply.idAccount === 'object' 
-                        ? `${reply.idAccount.firstName} ${reply.idAccount.lastName}`
+                      const replyUserId = typeof reply.idAccount === 'object' 
+                        ? reply.idAccount._id 
                         : reply.idAccount;
 
                       return (
                         <div key={reply._id} className="reply">
-                          <img src="../img/avata.jpg" alt="" className="avatar" />
+                          <ShowAccount params={{ id: replyUserId }} />
                           <div className="content">
-                            <a href="#">{replyUsername}</a>
+                            <a href="#">{typeof reply.idAccount === 'object' 
+                              ? `${reply.idAccount.firstName} ${reply.idAccount.lastName}`
+                              : reply.idAccount}
+                            </a>
                             <label>{reply.text}</label>
                             <div className="comment-actions">
                               <button 
