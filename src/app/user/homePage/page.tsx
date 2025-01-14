@@ -208,11 +208,12 @@ export default function HomePage() {
                 </div>
                 <div className="contentTitle">
                   <ShowFavorite params={{ id: post._id }} />
-                  <a className="titlePost" href="#">
+                  <div className="titlePost">
                     <label style={{ marginRight: "5px" }}>
                       <ShowNameByPost params={{ id: post.idAccount._id }} />
-                    </label>{post.title}
-                  </a>
+                    </label>
+                    <span>{post.title}</span>
+                  </div>
                 </div>
                 <div className="inPutThemBL">
                   <div className="d-flex">

@@ -1,13 +1,13 @@
-#InputComment{
+#InputComment {
     margin-left: 10px;
     display: none;
 }
-#InputComment input{
+#InputComment input {
     border: 1px solid #d2d2d2;
     padding: 5px 10px;
     border-radius: 7px;
 }
-#InputComment button{
+#InputComment button {
     background-color: #219af7;
     border: none;
     padding: 5px 10px;
@@ -16,42 +16,73 @@
     border-radius: 7px;
     margin-left: 10px;
 }
-/* tùy chọn */
-#tuychon{
+
+/* Tùy chọn */
+#tuychon {
     position: relative;
 }
-#tuychon:hover{
+#tuychon:hover {
     cursor: pointer;
 }
-.ul_post{
+.ul_post {
     display: none;
     border: 1px solid #d2d2d2;
     border-radius: 5px;
     position: absolute;
     top: 15%;
     left: 88%;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
     background-color: white;
     padding: 0px;
     margin: 0;
     width: 250px;
 }
-.ul_post li{
+.ul_post li {
     list-style: none;
     padding: 5px 7px;
     transition: all 0.5s;
 }
-.ul_post li:hover{
+.ul_post li:hover {
     background-color: aliceblue;
     cursor: pointer;
 }
-/* formprivate */
-.formprivate{
+
+/* Form Private */
+.formprivate {
     display: none;
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
     border: 1px solid #d2d2d2;
     background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+.formprivate h3 {
+    margin-top: 0;
+    font-size: 18px;
+    text-align: center;
+}
+.formprivate input {
+    width: 100%;
+    border: 1px solid #d2d2d2;
+    border-radius: 5px;
+    padding: 8px;
+    margin-bottom: 10px;
+}
+.formprivate button {
+    background-color: #219af7;
+    color: white;
+    border: none;
+    padding: 7px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: block;
+    width: 45%;
+    font-weight: bold;
+}
+.formprivate button:hover {
+    background-color: #176fb3;
 }

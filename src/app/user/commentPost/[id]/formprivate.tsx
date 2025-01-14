@@ -45,14 +45,17 @@ export default function FormPrivate({ params }: { params: { id: string } }) {
                 <select
                     className="form-select form-select-lg mb-3"
                     aria-label=".form-select-lg example"
+                    value={privatepost}
                     onChange={(e) => setPrivate(e.target.value)}
                 >
-                    <option selected>Vui lòng chọn quyền riêng tư</option>
+                    <option value="">Vui lòng chọn quyền riêng tư</option>
                     <option value="Bạn bè">Bạn bè</option>
                     <option value="Chỉ mình tôi">Chỉ mình tôi</option>
                 </select>
-                <button onClick={editPrivate}>lưu</button>
+                <div className="d-flex justify-content-between" style={{width:"80%", margin:'auto'}}>
                 <button onClick={closeBTN}>Đóng</button>
+                <button onClick={editPrivate}>Lưu</button>
+                </div>
             </form>
         )
     )
